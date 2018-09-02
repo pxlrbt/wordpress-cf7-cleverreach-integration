@@ -1,10 +1,10 @@
 <?php
 
-namespace Pixelarbeit\CF7Cleverreach\Config;
+namespace Pixelarbeit\CF7Cleverreach\Controllers;
 
-use Pixelarbeit\Wordpress\Notifier\Notifier;
-use Pixelarbeit\CF7Cleverreach\Config\Mapper;
+use Pixelarbeit\CF7Cleverreach\Config\Config;
 use WPCF7_ContactForm;
+
 
 
 class FormConfigController
@@ -30,7 +30,6 @@ class FormConfigController
 
 	public function init()
 	{
-        $this->notifier = new Notifier('CF7 to Cleverreach');
         add_action('wpcf7_save_contact_form', [$this, 'saveCF7Config'], 10, 1 ); 
         add_filter('wpcf7_editor_panels', [$this, 'registerEditorPanel'], 10, 1);
     }
@@ -127,7 +126,7 @@ class FormConfigController
         $mapping = [];
         foreach ($_POST['wpcf7-cleverreach_attribute'] as $cf7Name => $cleverreachName) {
             if (empty($cleverreachName) == false) {
-                $mapping[$cf7Name] = $cleverreachName;
+                $mapping[$cf7Name] = strtolower($cleverreachName);
             }
         }
         
@@ -141,7 +140,7 @@ class FormConfigController
         $mapping = [];
         foreach ($_POST['wpcf7-cleverreach_global_attribute'] as $cf7Name => $cleverreachName) {
             if (empty($cleverreachName) == false) {
-                $mapping[$cf7Name] = $cleverreachName;
+                $mapping[$cf7Name] = strtolower($cleverreachName);
             }
         }
         

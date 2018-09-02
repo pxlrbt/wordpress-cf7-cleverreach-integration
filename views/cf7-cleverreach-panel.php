@@ -1,5 +1,5 @@
 <?php
-    use Pixelarbeit\CF7Cleverreach\Config\FormConfigController;
+    use Pixelarbeit\CF7Cleverreach\Controllers\FormConfigController;
     use Pixelarbeit\CF7Cleverreach\Config\Config;
 
     $fcc = FormConfigController::getInstance();
@@ -78,7 +78,7 @@
         </tbody>
     </table>
     <br><br><br>
-    <h3>Mapping: Attributes</h3>
+    <h3>Mapping: List Fields</h3>
     <table class="mapping">
         <thead>
             <tr>
@@ -101,7 +101,7 @@
     </table>
 
     <br><br><br>
-    <h3>Mapping: Global Attributes</h3>
+    <h3>Mapping: Intergroup Fields</h3>
     <table class="mapping">
         <thead>
             <tr>

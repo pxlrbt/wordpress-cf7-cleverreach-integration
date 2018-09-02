@@ -103,14 +103,21 @@ class Notifier
         }
 
         foreach ($notifications as $n) {
-            $message .= '<div class="notice notice-' . $n->type . ' is-dismissible">'
-                . '<p>'
-                . ($this->title !== '' ? '<strong>' . $this->title . '</strong> ' : '')
-                . $n->body
-                . '</p></div>';
+            $this->printNotification($n->type, $n->body);
         }
 
         delete_transient($this->transientName);
-        echo $message;
+        // echo $message;
+    }
+
+
+
+    public function printNotification($type, $message)
+    {
+        echo '<div class="notice notice-' . $type . ' is-dismissible">'
+            . '<p>'
+            . ($this->title !== '' ? '<strong>' . $this->title . '</strong> ' : '')
+            . $message
+            . '</p></div>';
     }
 }

@@ -27,10 +27,6 @@ class SubmissionHandler
         $this->form = $form;
         $options = Config::getOptions($form->id());
 
-        if (isset($options['active']) == false || $options['active'] == false) {
-            return;
-        }
-
         if (empty($options['listId']) || empty($options['formId']) || empty($options['emailField'])) {
             $this->notifier->error('Missing form configuration. Required: List Id, Form ID, Email Field.');
             return;
@@ -50,6 +46,7 @@ class SubmissionHandler
         $attributes = $this->getAttributes();
         $globalAttributes = $this->getGlobalAttributes();
         
+        
         try {
             $contact = $this->getContactByEmail($options['listId'], $email);
             
@@ -59,8 +56,6 @@ class SubmissionHandler
             } else {
                 $result = $this->updateContact($options['listId'], $email, $attributes, $globalAttributes);
             }
-            
-                            
         } catch (\Exception $e) {
             $this->logger->error($e->getMessage());
             $this->notifier->error('Error while transferring data from cf7 to cleverreach. Details in log.');
@@ -92,7 +87,7 @@ class SubmissionHandler
 
         foreach ($formData as $cf7Name => $cf7Value) {
             if (array_key_exists($cf7Name, $mapping)) {
-                $key = $mapping[$cf7Name];
+                $key = strtolower($mapping[$cf7Name]);
                 $mapped[$key] = $cf7Value;
             }
         }
@@ -111,7 +106,7 @@ class SubmissionHandler
 
         foreach ($formData as $cf7Name => $cf7Value) {
             if (array_key_exists($cf7Name, $mapping)) {
-                $key = $mapping[$cf7Name];
+                $key = strtolower($mapping[$cf7Name]);
                 $mapped[$key] = $cf7Value;
             }
         }
