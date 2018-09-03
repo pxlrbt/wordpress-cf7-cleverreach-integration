@@ -48,13 +48,13 @@ class SubmissionHandler
         
         
         try {
-            $contact = $this->getContactByEmail($options['listId'], $email);
+            $contact = $this->api->getContactByEmail($options['listId'], $email);
             
             if ($contact == null) {
-                $result = $this->createContact($options['listId'], $email, $attributes, $globalAttributes);
-                $mail = $this->sendActivationMail($options['formId'], $email);
+                $result = $this->api->createContact($options['listId'], $email, $attributes, $globalAttributes);
+                $mail = $this->api->sendActivationMail($options['formId'], $email);
             } else {
-                $result = $this->updateContact($options['listId'], $email, $attributes, $globalAttributes);
+                $result = $this->api->updateContact($options['listId'], $email, $attributes, $globalAttributes);
             }
         } catch (\Exception $e) {
             $this->logger->error($e->getMessage());
@@ -112,115 +112,5 @@ class SubmissionHandler
         }
 
         return $mapped;
-    }
-
-
-
-    private function setArrayValueByMultidimensionalKey(&$array, $key, $value)
-    {
-        $reference = &$array;
-        $keys = explode('.', $key);
-
-        foreach ($keys as $key) {
-            if (!array_key_exists($key, $reference)) {
-                $reference[$key] = [];
-            }
-
-            $reference = &$reference[$key];
-        }
-
-        $reference = $value;
-    }
-
-
-
-    public function getContactByEmail($listId, $email)
-    {
-
-        $url = $this->api->buildUrl('receivers/filter.json');
-        $result = $this->api->request($url, 'POST', [
-            'rules' => [
-                [
-                    'field' => 'email',
-                    'logic' => 'eq',
-                    'condition' => $email
-                ]
-            ],
-            'activeonly' => false,
-            'groups' => [$listId],
-            'page' => 0,
-            'pagesize' => 1
-
-        ]);
-
-        if (isset($result->error)) {
-            throw new \Exception("CF7 to Cleverreach:" . $result->error->message);
-        }
-
-        return count($result) > 0 ? $result[0] : null;        
-    }
-    
-    
-    
-    public function updateContact($listId, $email, $attributes = [], $globalAttributes = [])
-    {
-        $url = $this->api->buildUrl('groups.json/' . $listId . '/receivers/' . $email);
-        $result = $this->api->request($url, 'PUT', [
-            "email" => $email,
-            "source" => "Webseite",    
-            "attributes" => $attributes,
-            "global_attributes" => $globalAttributes            
-        ]);
-
-        if (isset($result->error)) {
-            throw new \Exception("CF7 to Cleverreach:" . $result->error->message);
-        }
-
-        return $result;
-    }
-    
-
-
-    public function createContact($listId, $email, $attributes = [], $globalAttributes = [])
-    {
-        $url = $this->api->buildUrl('groups.json/' . $listId . '/receivers');
-        $result = $this->api->request($url, 'POST', [
-            "email" => $email,
-            "created" => time(),
-            "deactivated" => 1,
-            "attributes" => $attributes,
-            "global_attributes" => $globalAttributes
-        ]);
-
-        if (isset($result->error)) {
-            throw new \Exception("CF7 to Cleverreach:" . $result->error->message);
-        }
-
-        return $result;
-    }
-
-    
-
-    public function sendActivationMail($formId, $email)
-    {
-        
-        $doidata = array(
-            "user_ip" => $_SERVER['REMOTE_ADDR'],
-            "user_agent" => $_SERVER['HTTP_USER_AGENT'],
-            "referer" => $_SERVER['HTTP_REFERER'],
-        );
-
-        $url = $this->api->buildUrl('forms.json/' . $formId . '/send/activate');
-
-        $result = $this->api->request($url, 'POST', [
-            'email' => $email,
-            'doidata' => $doidata
-        ]);
-
-        if (isset($result->error)) {
-            throw new \Exception("CF7 to Cleverreach:" . $result->error->message);
-        }
-
-        return $result;
     }
 }
