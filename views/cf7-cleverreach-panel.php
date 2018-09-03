@@ -6,6 +6,14 @@
     $options = Config::getOptions($fcc->getCurrentFormId());
     $attributeMapping = Config::getAttributeMapping($fcc->getCurrentFormId());
     $globalAttributeMapping = Config::getGlobalAttributeMapping($fcc->getCurrentFormId());
+
+    $api = $this->plugin->getApi();
+
+    if (isset($options['listId'])) {
+        $globalAttributes = $api->getAttributes(0);
+        $attributes = $api->getAttributes($options['listId']);
+    }
+    
 ?>
 
 <div class="cleverreach-config">
@@ -28,15 +36,31 @@
                 </td>            
             </tr>        
             <tr>
-                <th>List ID*</th>
+                <th>Group*</th>
                 <td>
-                    <input type="text" name="wpcf7-cleverreach_options[listId]" <?php if (isset($options['listId'])): ?>value="<?php echo $options['listId']; ?>"<?php endif; ?>>
+                    <select name="wpcf7-cleverreach_options[listId]">
+                        <option value=""></option>
+                        <?php foreach ($api->getGroups() as $group): ?>
+                            <option value="<?php echo $group->id; ?>"
+                                <?php if (isset($options['listId']) && $group->id == $options['listId']) { echo "selected"; } ?>>
+                                <?php echo $group->name; ?>
+                            </option>
+                        <?php endforeach; ?>
+                    </select>
                 </td>            
             </tr>        
             <tr>
-                <th>Form ID*</th>
+                <th>Form*</th>
                 <td>
-                    <input type="text" name="wpcf7-cleverreach_options[formId]" <?php if (isset($options['formId'])): ?>value="<?php echo $options['formId']; ?>"<?php endif; ?>>
+                    <select name="wpcf7-cleverreach_options[formId]">
+                        <option value=""></option>
+                        <?php foreach ($api->getForms() as $form): ?>
+                            <option value="<?php echo $form->id; ?>"
+                                <?php if (isset($options['formId']) && $form->id == $options['formId']) { echo "selected"; } ?>>
+                                <?php echo $form->name; ?>
+                            </option>
+                        <?php endforeach; ?>
+                    </select>
                 </td>            
             </tr>        
             <tr class="hasNote">
@@ -77,52 +101,67 @@
             </tr>           
         </tbody>
     </table>
-    <br><br><br>
-    <h3>Mapping: List Fields</h3>
-    <table class="mapping">
-        <thead>
-            <tr>
-                <td>CF7 Field</td>
-                <td>Cleverreach Attribute</td>
-            </tr>
-        </thead>
-        <tbody>
-            <?php foreach ($fcc->getCF7FieldNames() as $field): ?>
-                <tr>
-                    <th><?php echo $field; ?></th>
-                    <td>
-                        <input type="text"
-                            name="wpcf7-cleverreach_attribute[<?php echo $field; ?>]"
-                            value="<?php if (isset($attributeMapping[$field])) { echo $attributeMapping[$field]; } ?>">
-                    </td>                       
-                </tr>
-            <?php endforeach; ?>            
-        </tbody>
-    </table>
 
-    <br><br><br>
-    <h3>Mapping: Intergroup Fields</h3>
-    <table class="mapping">
-        <thead>
-            <tr>
-                <td>CF7 Field</td>
-                <td>Cleverreach Attribute</td>
-
-            </tr>
-        </thead>
-        <tbody>
-            <?php foreach ($fcc->getCF7FieldNames() as $field): ?>
+    <?php if ($options['listId']): ?>
+        <br><br><br>
+        <h3>Mapping: List Fields</h3>
+        
+        <table class="mapping">
+            <thead>
                 <tr>
-                    <th><?php echo $field; ?></th>
-                    <td>
-                        <input type="text"
-                            name="wpcf7-cleverreach_global_attribute[<?php echo $field; ?>]"
-                            value="<?php if (isset($globalAttributeMapping[$field])) { echo $globalAttributeMapping[$field]; } ?>">
-                    </td>            
+                    <td>CF7 Field</td>
+                    <td>Cleverreach Attribute</td>
                 </tr>
-            <?php endforeach; ?>            
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                <?php foreach ($fcc->getCF7FieldNames() as $field): ?>
+                    <tr>
+                        <th><?php echo $field; ?></th>
+                        <td>
+                            <select name="wpcf7-cleverreach_attribute[<?php echo $field; ?>]">
+                                <option value=""></option>
+                                <?php foreach ($attributes as $attr): ?>
+                                    <option value="<?php echo $attr->name; ?>"
+                                    <?php if (isset($attributeMapping[$field]) && $attributeMapping[$field] == $attr->name) { echo "selected"; } ?>>
+                                        <?php echo $attr->description; ?>
+                                    </option>
+                                <?php endforeach; ?>
+                            </select>
+                        </td>                       
+                    </tr>
+                <?php endforeach; ?>            
+            </tbody>
+        </table>
+
+        <br><br><br>
+        <h3>Mapping: Intergroup Fields</h3>
+        <table class="mapping">
+            <thead>
+                <tr>
+                    <td>CF7 Field</td>
+                    <td>Cleverreach Attribute</td>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($fcc->getCF7FieldNames() as $field): ?>
+                    <tr>
+                        <th><?php echo $field; ?></th>
+                        <td>
+                            <select name="wpcf7-cleverreach_global_attribute[<?php echo $field; ?>]">
+                                <option value=""></option>
+                                <?php foreach ($globalAttributes as $attr): ?>
+                                    <option value="<?php echo $attr->name; ?>"
+                                    <?php if (isset($globalAttributeMapping[$field]) && $globalAttributeMapping[$field] == $attr->name) { echo "selected"; } ?>>
+                                        <?php echo $attr->description; ?>
+                                    </option>
+                                <?php endforeach; ?>
+                            </select>
+                        </td>            
+                    </tr>
+                <?php endforeach; ?>            
+            </tbody>
+        </table>
+    <?php endif; ?>
 </div>
 
 <style>
@@ -136,6 +175,11 @@
         text-align: left;
         border-collapse: collapse;
         margin-bottom: 1.5em;
+    }
+
+    .mapping select {
+        text-align: right;
+        min-width: 150px;
     }
 
     .mapping th, .mapping td {
@@ -160,6 +204,7 @@
 
     .mapping tr.hasNote th, .mapping tr.hasNote td {
         border-bottom: none;
+        padding-bottom: 0;
     }
 
 </style>
