@@ -30,8 +30,9 @@ class SettingsPageController
 
 
 
-	public function init()
+	public function init($plugin)
 	{
+        $this->plugin = $plugin;
         $this->notifier = new Notifier('CF7 to Cleverreach:');
         add_action('admin_init', [$this, 'registerSetting']);
         add_action('admin_menu', [$this, 'registerMenu']);
@@ -45,7 +46,6 @@ class SettingsPageController
     }
 
 
-
     
     public function registerMenu()
     {
@@ -56,8 +56,6 @@ class SettingsPageController
             'cf7-cleverreach',
             [$this, 'printPage']
         );
-
-      
     }
 
 
@@ -81,7 +79,7 @@ class SettingsPageController
 
     public function getApiToken($code)
     {
-        $api = new CleverreachApi();
+        $api = $this->plugin->getApi();
         $clientId = get_option('wpcf7-cleverreach_client-id', null);
         $clientSecret = get_option('wpcf7-cleverreach_client-secret', null);
         $redirectUrl = esc_url(admin_url('options-general.php?page=cf7-cleverreach'));

@@ -51,7 +51,6 @@ class Plugin
     
 
 
-
     /**
      * Initializes the plugin
      *
@@ -64,10 +63,10 @@ class Plugin
         $this->logger = new Logger('CF7 to Cleverreach:');
 
         $forms = FormConfigController::getInstance();
-        $forms->init();
+        $forms->init($this);
         
         $settings = SettingsPageController::getInstance();
-        $settings->init();
+        $settings->init($this);
         
         /* Backend hooks */
         register_uninstall_hook(__FILE__, [__CLASS__, 'uninstall']);
@@ -77,7 +76,6 @@ class Plugin
         /* Frontend hooks */
         add_action('wpcf7_mail_sent', [$this, 'onCF7MailSent']);
     }
-
 
 
     
@@ -95,22 +93,12 @@ class Plugin
             return;
         }
 
-        $token = $this->getApiToken();
-        
-        if (($token = $this->getApiToken()) == false) {
-            $this->notifier->warning('Incomplete configuration.');
-            return;
-        }
-
-        $api = new CleverreachApi($token);
+        $api = $this->getApi();
 
         $submissionHandler = new SubmissionHandler($api);
         $submissionHandler->handleForm($form);
    
     }
-
-
-
     
     
 
@@ -184,6 +172,27 @@ class Plugin
         if (get_post_type($postId) == \WPCF7_ContactForm::post_type) {
             Config::deleteConfig($postId);
         }
+    }
+
+
+    
+    /**
+     * Get Cleverreach API
+     *
+     * @return void
+     * @author Dennis Koch <info@pixelarbeit.de>
+     * @since 1.2
+     */
+    public function getApi()
+    {
+        $token = $this->getApiToken();
+        
+        if (($token = $this->getApiToken()) == false) {
+            $this->notifier->warning('Incomplete configuration.');
+            return;
+        }
+
+        return new CleverreachApi($token);
     }
 
 

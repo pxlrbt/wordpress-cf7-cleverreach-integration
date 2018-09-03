@@ -28,8 +28,9 @@ class FormConfigController
 
 
 
-	public function init()
+	public function init($plugin)
 	{
+        $this->plugin = $plugin;
         add_action('wpcf7_save_contact_form', [$this, 'saveCF7Config'], 10, 1 ); 
         add_filter('wpcf7_editor_panels', [$this, 'registerEditorPanel'], 10, 1);
     }
@@ -101,7 +102,7 @@ class FormConfigController
         $options = $_POST['wpcf7-cleverreach_options'];
         
         if (empty($options['listId']) || empty($options['formId']) || empty($options['emailField'])) {
-            $this->notifier->warning('Missing form configuration. Required: List Id, Form ID, Email Field.');
+            $this->plugin->notifier->warning('Missing form configuration. Required: List Id, Form ID, Email Field.');
         }
     }
 
@@ -123,7 +124,12 @@ class FormConfigController
 
     private function saveAttributeMapping()
     {
+        if (isset($_POST['wpcf7-cleverreach_attribute']) == false) {
+            return;
+        }
+
         $mapping = [];
+        
         foreach ($_POST['wpcf7-cleverreach_attribute'] as $cf7Name => $cleverreachName) {
             if (empty($cleverreachName) == false) {
                 $mapping[$cf7Name] = strtolower($cleverreachName);
@@ -137,6 +143,10 @@ class FormConfigController
 
     private function saveGlobalAttributeMapping()
     {
+        if (isset($_POST['wpcf7-cleverreach_global_attribute']) == false) {
+            return;
+        }
+
         $mapping = [];
         foreach ($_POST['wpcf7-cleverreach_global_attribute'] as $cf7Name => $cleverreachName) {
             if (empty($cleverreachName) == false) {
