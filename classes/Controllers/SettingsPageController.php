@@ -34,15 +34,7 @@ class SettingsPageController
 	{
         $this->plugin = $plugin;
         $this->notifier = new Notifier('CF7 to Cleverreach:');
-        add_action('admin_init', [$this, 'registerSetting']);
         add_action('admin_menu', [$this, 'registerMenu']);
-    }
-
-
-
-    public function registerSetting()
-    {
-        register_setting('wpcf7-cleverreach', 'wpcf7-cleverreach_api-token', []);        
     }
 
 
@@ -70,8 +62,6 @@ class SettingsPageController
             $this->getApiToken($_GET['code']);
         }
 
-        $this->saveData();
-            
         include __DIR__ . '/../../views/settings-page.php';
     }
 
@@ -80,12 +70,11 @@ class SettingsPageController
     public function getApiToken($code)
     {
         $api = $this->plugin->getApi();
-        $clientId = get_option('wpcf7-cleverreach_client-id', null);
-        $clientSecret = get_option('wpcf7-cleverreach_client-secret', null);
+        
         $redirectUrl = esc_url(admin_url('options-general.php?page=cf7-cleverreach'));
         
         try {
-            $result = $api->getApiToken($clientId, $clientSecret, $code, $redirectUrl);
+            $result = $api->getApiToken($this->plugin::$clientId, $this->plugin::$clientSecret, $code, $redirectUrl);
         } catch (Exception $e) {
             $this->notifier->printNotification('error', 'Unexpected error.');
             return;
@@ -101,26 +90,5 @@ class SettingsPageController
             update_option('wpcf7-cleverreach_api-expires', time() + $result->expires_in);
             $this->notifier->printNotification('success', 'Api token updated');
         }           
-    }
-    
-
-
-    public function saveData()
-    {
-        if (empty($_POST)) {
-            return;
-        }
-
-        check_admin_referer('wpcf7-cleverreach');
-
-        $clientId = $_POST['wpcf7-cleverreach_client-id'];
-        $clientSecret = $_POST['wpcf7-cleverreach_client-secret'];
-
-        update_option('wpcf7-cleverreach_client-id', $clientId);
-        update_option('wpcf7-cleverreach_client-secret', $clientSecret);
-        
-        $this->notifier->printNotification('success', 'Saved credentials');
-
-        return;
     }
 }

@@ -100,21 +100,21 @@ class Api
             'pagesize' => 1
 
         ]);
-
+        
         $this->validateResponse($result);
-
-        return count($result) > 0 ? $result[0] : null;        
+        
+        return is_array($result) > 0 ? $result[0] : null;        
     }
     
     
     
-    public function updateContact($listId, $email, $attributes = [], $globalAttributes = [])
+    public function updateContact($listId, $email, $tags = [], $attributes = [], $globalAttributes = [])
     {
         $url = $this->buildUrl('groups.json/' . $listId . '/receivers/' . $email);
         $result = $this->request($url, 'PUT', [
             "email" => $email,
-            "source" => "Webseite",    
             "attributes" => $attributes,
+            "tags" => $tags,
             "global_attributes" => $globalAttributes            
         ]);
 
@@ -125,17 +125,20 @@ class Api
     
 
 
-    public function createContact($listId, $email, $attributes = [], $globalAttributes = [])
+    public function createContact($listId, $email, $active = false, $source = '', $tags = [], $attributes = [], $globalAttributes = [])
     {
         $url = $this->buildUrl('groups.json/' . $listId . '/receivers');
         $result = $this->request($url, 'POST', [
             "email" => $email,
-            "created" => time(),
-            "deactivated" => 1,
+            "source" => $source,
+            "tags" => $tags,
+            "active" => $active,
+            "registered" => time(),
+            "activated" => ($active ? time() : 0),
             "attributes" => $attributes,
             "global_attributes" => $globalAttributes
         ]);
-
+        
         $this->validateResponse($result);
 
         return $result;

@@ -43,18 +43,36 @@ class SubmissionHandler
             return;
         }
 
+        $tags = isset($options['tags']) ? explode(',', $options['tags']) : [];
+        $activate = isset($options['doubleOptIn']) &&  $options['doubleOptIn'] ? false : true;
         $attributes = $this->getAttributes();
         $globalAttributes = $this->getGlobalAttributes();
-        
         
         try {
             $contact = $this->api->getContactByEmail($options['listId'], $email);
             
             if ($contact == null) {
-                $result = $this->api->createContact($options['listId'], $email, $attributes, $globalAttributes);
-                $mail = $this->api->sendActivationMail($options['formId'], $email);
+                $result = $this->api->createContact(
+                    $options['listId'],
+                    $email,
+                    $activate,
+                    $options['source'],
+                    $tags,
+                    $attributes,
+                    $globalAttributes
+                );                
+
+                if (isset($options['doubleOptIn']) == false || $options['doubleOptIn'] == true) {
+                    $mail = $this->api->sendActivationMail($options['formId'], $email);
+                }
             } else {
-                $result = $this->api->updateContact($options['listId'], $email, $attributes, $globalAttributes);
+                $result = $this->api->updateContact(
+                    $options['listId'],
+                    $email,
+                    $tags,
+                    $attributes,
+                    $globalAttributes
+                );
             }
         } catch (\Exception $e) {
             $this->logger->error($e->getMessage());
@@ -87,6 +105,7 @@ class SubmissionHandler
 
         foreach ($formData as $cf7Name => $cf7Value) {
             if (array_key_exists($cf7Name, $mapping)) {
+                $cf7Value = is_array($cf7Value) ? implode(',', $cf7Value) : $cf7Value;
                 $key = strtolower($mapping[$cf7Name]);
                 $mapped[$key] = $cf7Value;
             }
@@ -106,6 +125,7 @@ class SubmissionHandler
 
         foreach ($formData as $cf7Name => $cf7Value) {
             if (array_key_exists($cf7Name, $mapping)) {
+                $cf7Value = is_array($cf7Value) ? implode(',', $cf7Value) : $cf7Value;
                 $key = strtolower($mapping[$cf7Name]);
                 $mapped[$key] = $cf7Value;
             }

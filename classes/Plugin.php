@@ -17,8 +17,11 @@ class Plugin
 {
     public static $name = 'cf7-cleverreach-integration';
     public static $prefix = 'wpcf7-cleverreach_';
-    public static $version = '1.1.1';
+    public static $version = '2.1';
     public static $title = 'Contact Form 7 - Cleverreach Integration';
+
+    public static $clientId = 'dDHV6YpJm3';
+    public static $clientSecret = 'ysqrbL2NNKTwGWphfWMRkZu1VA0kjnoS';
 
     private static $instance;
 
@@ -116,8 +119,9 @@ class Plugin
             delete_option('cf7-cleverreach_token');
             
             $this->logger->info('Updated to version 1.1');
-            $this->setVersion(self::$version);
         }  
+
+        $this->setVersion(self::$version);
     }
 
 
@@ -189,7 +193,7 @@ class Plugin
         
         if (($token = $this->getApiToken()) == false) {
             $this->notifier->warning('Incomplete configuration.');
-            return;
+            return new CleverreachApi();
         }
 
         return new CleverreachApi($token);

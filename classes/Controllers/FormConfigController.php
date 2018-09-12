@@ -112,6 +112,7 @@ class FormConfigController
         $options = [];
         
         $options['active'] = isset($_POST['wpcf7-cleverreach_options']['active']);
+        $options['doubleOptIn'] = isset($_POST['wpcf7-cleverreach_options']['doubleOptIn']);
 
         foreach ($_POST['wpcf7-cleverreach_options'] as $optionName => $optionValue) {
             $options[$optionName] = $optionValue;

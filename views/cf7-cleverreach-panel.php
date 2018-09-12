@@ -98,6 +98,39 @@
                 <td colspan="2">
                     <small>Only send data to cleverreach if this field is set.</small>
                 </td>
+            </tr>   
+            <tr class="hasNote">
+                <th>Double Opt-In</th>
+                <td>
+                    <input type="checkbox" name="wpcf7-cleverreach_options[doubleOptIn]" <?php if (isset($options['doubleOptIn']) == false || $options['doubleOptIn'] == true): ?>checked<?php endif; ?>>
+                </td>            
+            </tr>         
+            <tr>
+                <td colspan="2">
+                    <small>Creates deactivated recipient and sends an confirmation email (GDPR compliant)</small>
+                </td>
+            </tr>           
+            <tr class="hasNote">
+                <th>Source</th>
+                <td>
+                    <input type="text" name="wpcf7-cleverreach_options[source]" <?php if (isset($options['source'])) { echo 'value="' . $options['source'] . '"'; } ?>>
+                </td>            
+            </tr>         
+            <tr>
+                <td colspan="2">
+                    <small>Value for cleverreach source field.</small>
+                </td>
+            </tr>           
+            <tr class="hasNote">
+                <th>Tags</th>
+                <td>
+                    <input type="text" name="wpcf7-cleverreach_options[tags]" <?php if (isset($options['tags'])) { echo 'value="' . $options['tags'] . '"'; } ?>>
+                </td>            
+            </tr>         
+            <tr>
+                <td colspan="2">
+                    <small>Comma seperated list of tags.</small>
+                </td>
             </tr>           
         </tbody>
     </table>
