@@ -3,6 +3,7 @@
 namespace Pixelarbeit\CF7Cleverreach\Controllers;
 
 use Pixelarbeit\Cleverreach\Api as CleverreachApi;
+use Pixelarbeit\CF7Cleverreach\Plugin;
 use Pixelarbeit\Wordpress\Notifier\Notifier;
 use WPCF7_ContactForm;
 use Exception;
@@ -74,7 +75,7 @@ class SettingsPageController
         $redirectUrl = esc_url(admin_url('options-general.php?page=cf7-cleverreach'));
         
         try {
-            $result = $api->getApiToken($this->plugin::$clientId, $this->plugin::$clientSecret, $code, $redirectUrl);
+            $result = $api->getApiToken(Plugin::$clientId, Plugin::$clientSecret, $code, $redirectUrl);
         } catch (Exception $e) {
             $this->notifier->printNotification('error', 'Unexpected error.');
             return;
