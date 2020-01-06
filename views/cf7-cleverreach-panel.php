@@ -9,11 +9,18 @@
 
     $api = $this->plugin->getApi();
 
-    if (isset($options['listId'])) {
-        $globalAttributes = $api->getAttributes(0);
-        $attributes = $api->getAttributes($options['listId']);
+    try {
+        $groups = $api->getGroups();
+        $forms = $api->getForms();
+
+        if (isset($options['listId'])) {
+            $globalAttributes = $api->getAttributes(0);
+            $attributes = $api->getAttributes($options['listId']);
+        }
+    } catch (\Exception $e) {
     }
-    
+
+
 ?>
 
 <div class="cleverreach-config">
@@ -33,36 +40,40 @@
                 <th>Active</th>
                 <td>
                     <input type="checkbox" name="wpcf7-cleverreach_options[active]" <?php if (isset($options['active']) && $options['active'] == true): ?>checked<?php endif; ?>>
-                </td>            
-            </tr>        
+                </td>
+            </tr>
             <tr>
                 <th>Group*</th>
                 <td>
                     <select name="wpcf7-cleverreach_options[listId]">
                         <option value=""></option>
-                        <?php foreach ($api->getGroups() as $group): ?>
-                            <option value="<?php echo $group->id; ?>"
-                                <?php if (isset($options['listId']) && $group->id == $options['listId']) { echo "selected"; } ?>>
-                                <?php echo $group->name; ?>
-                            </option>
-                        <?php endforeach; ?>
+                        <?php if (is_array($groups)): ?>
+                            <?php foreach ($groups as $group): ?>
+                                <option value="<?php echo $group->id; ?>"
+                                    <?php if (isset($options['listId']) && $group->id == $options['listId']) { echo "selected"; } ?>>
+                                    <?php echo $group->name; ?>
+                                </option>
+                            <?php endforeach; ?>
+                        <?php endif; ?>
                     </select>
-                </td>            
-            </tr>        
+                </td>
+            </tr>
             <tr>
                 <th>Form*</th>
                 <td>
                     <select name="wpcf7-cleverreach_options[formId]">
                         <option value=""></option>
-                        <?php foreach ($api->getForms() as $form): ?>
-                            <option value="<?php echo $form->id; ?>"
-                                <?php if (isset($options['formId']) && $form->id == $options['formId']) { echo "selected"; } ?>>
-                                <?php echo $form->name; ?>
-                            </option>
-                        <?php endforeach; ?>
+                        <?php if (is_array($forms)): ?>
+                            <?php foreach ($forms as $form): ?>
+                                <option value="<?php echo $form->id; ?>"
+                                    <?php if (isset($options['formId']) && $form->id == $options['formId']) { echo "selected"; } ?>>
+                                    <?php echo $form->name; ?>
+                                </option>
+                            <?php endforeach; ?>
+                        <?php endif; ?>
                     </select>
-                </td>            
-            </tr>        
+                </td>
+            </tr>
             <tr class="hasNote">
                 <th>Email Field*</th>
                 <td>
@@ -71,16 +82,16 @@
                         <?php foreach ($fcc->getCF7FieldNames() as $field): ?>
                             <option value="<?php echo $field; ?>" <?php if (isset($options['emailField']) && $options['emailField'] == $field): ?>selected<?php endif; ?>>
                                 <?php echo $field; ?>
-                            </option>                            
-                        <?php endforeach; ?>      
+                            </option>
+                        <?php endforeach; ?>
                     </select>
-                </td>   
-            </tr>       
+                </td>
+            </tr>
             <tr>
                 <td colspan="2">
                     <small>Field that contains email address.</small>
                 </td>
-            </tr>   
+            </tr>
             <tr class="hasNote">
                 <th>Require Field</th>
                 <td>
@@ -89,56 +100,56 @@
                         <?php foreach ($fcc->getCF7FieldNames() as $field): ?>
                             <option value="<?php echo $field; ?>" <?php if (isset($options['requireField']) && $options['requireField'] == $field): ?>selected<?php endif; ?>>
                                 <?php echo $field; ?>
-                            </option>                            
-                        <?php endforeach; ?>      
+                            </option>
+                        <?php endforeach; ?>
                     </select>
-                </td>            
-            </tr>         
+                </td>
+            </tr>
             <tr>
                 <td colspan="2">
                     <small>Only send data to cleverreach if this field is set.</small>
                 </td>
-            </tr>   
+            </tr>
             <tr class="hasNote">
                 <th>Double Opt-In</th>
                 <td>
                     <input type="checkbox" name="wpcf7-cleverreach_options[doubleOptIn]" <?php if (isset($options['doubleOptIn']) == false || $options['doubleOptIn'] == true): ?>checked<?php endif; ?>>
-                </td>            
-            </tr>         
+                </td>
+            </tr>
             <tr>
                 <td colspan="2">
                     <small>Creates deactivated recipient and sends an confirmation email (GDPR compliant)</small>
                 </td>
-            </tr>           
+            </tr>
             <tr class="hasNote">
                 <th>Source</th>
                 <td>
                     <input type="text" name="wpcf7-cleverreach_options[source]" <?php if (isset($options['source'])) { echo 'value="' . $options['source'] . '"'; } ?>>
-                </td>            
-            </tr>         
+                </td>
+            </tr>
             <tr>
                 <td colspan="2">
                     <small>Value for cleverreach source field.</small>
                 </td>
-            </tr>           
+            </tr>
             <tr class="hasNote">
                 <th>Tags</th>
                 <td>
                     <input type="text" name="wpcf7-cleverreach_options[tags]" <?php if (isset($options['tags'])) { echo 'value="' . $options['tags'] . '"'; } ?>>
-                </td>            
-            </tr>         
+                </td>
+            </tr>
             <tr>
                 <td colspan="2">
                     <small>Comma seperated list of tags.</small>
                 </td>
-            </tr>           
+            </tr>
         </tbody>
     </table>
 
-    <?php if ($options['listId']): ?>
+    <?php if (isset($options['listId'])): ?>
         <br><br><br>
         <h3>Mapping: List Fields</h3>
-        
+
         <table class="mapping">
             <thead>
                 <tr>
@@ -160,9 +171,9 @@
                                     </option>
                                 <?php endforeach; ?>
                             </select>
-                        </td>                       
+                        </td>
                     </tr>
-                <?php endforeach; ?>            
+                <?php endforeach; ?>
             </tbody>
         </table>
 
@@ -189,9 +200,9 @@
                                     </option>
                                 <?php endforeach; ?>
                             </select>
-                        </td>            
+                        </td>
                     </tr>
-                <?php endforeach; ?>            
+                <?php endforeach; ?>
             </tbody>
         </table>
     <?php endif; ?>
@@ -204,7 +215,7 @@
     }
 
     .mapping {
-        width: 100%;  
+        width: 100%;
         text-align: left;
         border-collapse: collapse;
         margin-bottom: 1.5em;
