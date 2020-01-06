@@ -17,7 +17,7 @@ class Plugin
 {
     public static $name = 'cf7-cleverreach-integration';
     public static $prefix = 'wpcf7-cleverreach_';
-    public static $version = '2.1';
+    public static $version = '2.1.1';
     public static $title = 'Contact Form 7 - Cleverreach Integration';
 
     public static $clientId = 'dDHV6YpJm3';
