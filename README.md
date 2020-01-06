@@ -1,17 +1,17 @@
-# Contact Form 7 - Cleverreach Addon
+# Contact Form 7 - CleverReach ® Addon
 
-Connects your Contact Form 7 forms with your Cleverreach account.
+Connects your Contact Form 7 forms with your CleverReach ® account.
 
 ## Features
-* Add/update Cleverreach recipients when a form is submitted including custom Cleverreach fields
-* Easy mapping between CF7 fields and Cleverreach fields
-* Easy connection to Cleverreach (Only credentials are needed)
+* Add/update CleverReach ® recipients when a form is submitted including custom CleverReach ® fields
+* Easy mapping between CF7 fields and CleverReach ® fields
+* Easy connection to CleverReach ® (Only credentials are needed)
 * Invidual settings per form (e.g. group, form, mapping, ...)
 * Choose between Single Opt-In and Double Opt-In
-* Choose a "required field" for Cleverreach submission
+* Choose a "required field" for CleverReach ® submission
 
 ## Support
 For support open an issue on github.
 
 ## Wordpress.org
-<https://wordpress.org/plugins/cf7-cleverreach-integration>
+<https://wordpress.org/plugins/cf7-CleverReach ®-integration>
