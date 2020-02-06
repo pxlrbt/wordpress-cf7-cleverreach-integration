@@ -1,6 +1,6 @@
 <?php
-    use Pixelarbeit\CF7Cleverreach\Controllers\FormConfigController;
-    use Pixelarbeit\CF7Cleverreach\Config\Config;
+    use pxlrbt\CF7Cleverreach\Controllers\FormConfigController;
+    use pxlrbt\CF7Cleverreach\Config\Config;
 
     $fcc = FormConfigController::getInstance();
     $options = Config::getOptions($fcc->getCurrentFormId());

@@ -1,15 +1,15 @@
 <?php
 
-namespace Pixelarbeit\CF7Cleverreach;
+namespace pxlrbt\CF7Cleverreach;
 
-use Pixelarbeit\CF7Cleverreach\Config\Config;
-use Pixelarbeit\CF7Cleverreach\Controllers\FormConfigController;
-use Pixelarbeit\CF7Cleverreach\Controllers\SettingsPageController;
-use Pixelarbeit\CF7Cleverreach\CF7\SubmissionHandler;
+use pxlrbt\CF7Cleverreach\Config\Config;
+use pxlrbt\CF7Cleverreach\Controllers\FormConfigController;
+use pxlrbt\CF7Cleverreach\Controllers\SettingsPageController;
+use pxlrbt\CF7Cleverreach\CF7\SubmissionHandler;
 
-use Pixelarbeit\Cleverreach\Api as CleverreachApi;
-use Pixelarbeit\Wordpress\Logger\Logger;
-use Pixelarbeit\Wordpress\Notifier\Notifier;
+use pxlrbt\Cleverreach\Api as CleverreachApi;
+use pxlrbt\Wordpress\Logger\Logger;
+use pxlrbt\Wordpress\Notifier\Notifier;
 
 
 
@@ -51,7 +51,7 @@ class Plugin
 
         return self::$instance;
     }
-    
+
 
 
     /**
@@ -67,21 +67,21 @@ class Plugin
 
         $forms = FormConfigController::getInstance();
         $forms->init($this);
-        
+
         $settings = SettingsPageController::getInstance();
         $settings->init($this);
-        
+
         /* Backend hooks */
         register_uninstall_hook(__FILE__, [__CLASS__, 'uninstall']);
         add_action('init', [$this, 'checkUpdate'], 10, 2);
         add_action('delete_post', [$this, 'deleteConfig'], 10, 1);
-        
+
         /* Frontend hooks */
         add_action('wpcf7_mail_sent', [$this, 'onCF7MailSent']);
     }
 
 
-    
+
     /**
      * Handles CF7 form submits
      *
@@ -91,7 +91,7 @@ class Plugin
     public function onCf7MailSent($form)
     {
         $options = Config::getOptions($form->id());
-        
+
         if (isset($options['active']) == false || $options['active'] == false) {
             return;
         }
@@ -100,10 +100,10 @@ class Plugin
 
         $submissionHandler = new SubmissionHandler($api);
         $submissionHandler->handleForm($form);
-   
+
     }
-    
-    
+
+
 
     /**
      * Update routine
@@ -117,9 +117,9 @@ class Plugin
             $token = get_option('cf7-cleverreach_token');
             update_option(self::$prefix . 'api-token', $token);
             delete_option('cf7-cleverreach_token');
-            
+
             $this->logger->info('Updated to version 1.1');
-        }  
+        }
 
         $this->setVersion(self::$version);
     }
@@ -149,8 +149,8 @@ class Plugin
     {
         return get_option(self::$prefix . 'version', '1.0');
     }
-    
-    
+
+
 
     /**
      * Set saved plugin version
@@ -163,7 +163,7 @@ class Plugin
         return update_option(self::$prefix . 'version', $version);
     }
 
-    
+
 
     /**
      * Delete config for given post id if it is cf7 form
@@ -172,14 +172,14 @@ class Plugin
      * @since 1.0
      */
     public function deleteConfig($postId)
-    {   
+    {
         if (get_post_type($postId) == \WPCF7_ContactForm::post_type) {
             Config::deleteConfig($postId);
         }
     }
 
 
-    
+
     /**
      * Get Cleverreach API
      *
@@ -190,7 +190,7 @@ class Plugin
     public function getApi()
     {
         $token = $this->getApiToken();
-        
+
         if (($token = $this->getApiToken()) == false) {
             $this->notifier->warning('Incomplete configuration.');
             return new CleverreachApi();

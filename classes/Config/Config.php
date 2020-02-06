@@ -1,6 +1,6 @@
 <?php
 
-namespace Pixelarbeit\CF7Cleverreach\Config;
+namespace pxlrbt\CF7Cleverreach\Config;
 
 
 
@@ -40,9 +40,9 @@ class Config
     {
         return update_post_meta($formId, '_wpcf7-cleverreach_attribute_mapping', $mapping);
     }
-    
-    
-    
+
+
+
     public static function getGlobalAttributeMapping($formId)
     {
         $data = get_post_meta($formId, '_wpcf7-cleverreach_global_attribute_mapping', true);

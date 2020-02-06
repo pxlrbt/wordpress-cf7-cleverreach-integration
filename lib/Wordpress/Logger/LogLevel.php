@@ -1,6 +1,6 @@
 <?php
 
-namespace Pixelarbeit\Wordpress\Logger;
+namespace pxlrbt\Wordpress\Logger;
 
 
 

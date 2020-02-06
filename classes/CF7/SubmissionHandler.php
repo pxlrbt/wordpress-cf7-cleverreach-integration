@@ -1,11 +1,11 @@
 <?php
 
-namespace Pixelarbeit\CF7Cleverreach\CF7;
+namespace pxlrbt\CF7Cleverreach\CF7;
 
-use Pixelarbeit\Cleverreach\Api as CleverreachApi;
-use Pixelarbeit\Wordpress\Notifier\Notifier;
-use Pixelarbeit\Wordpress\Logger\Logger;
-use Pixelarbeit\CF7Cleverreach\Config\Config;
+use pxlrbt\Cleverreach\Api as CleverreachApi;
+use pxlrbt\Wordpress\Notifier\Notifier;
+use pxlrbt\Wordpress\Logger\Logger;
+use pxlrbt\CF7Cleverreach\Config\Config;
 use WPCF7_ContactForm;
 use WPCF7_Submission;
 
@@ -14,11 +14,11 @@ use WPCF7_Submission;
 class SubmissionHandler
 {
 	public function __construct(CleverreachApi $api)
-	{        
+	{
         $this->notifier = new Notifier('CF7 to Cleverreach');
         $this->logger = new Logger('CF7 to Cleverreach');
         $this->api = $api;
-	}	
+	}
 
 
 
@@ -47,10 +47,10 @@ class SubmissionHandler
         $activate = isset($options['doubleOptIn']) &&  $options['doubleOptIn'] ? false : true;
         $attributes = $this->getAttributes();
         $globalAttributes = $this->getGlobalAttributes();
-        
+
         try {
             $contact = $this->api->getContactByEmail($options['listId'], $email);
-            
+
             if ($contact == null) {
                 $result = $this->api->createContact(
                     $options['listId'],
@@ -60,7 +60,7 @@ class SubmissionHandler
                     $tags,
                     $attributes,
                     $globalAttributes
-                );                
+                );
 
                 if (isset($options['doubleOptIn']) == false || $options['doubleOptIn'] == true) {
                     $mail = $this->api->sendActivationMail($options['formId'], $email);
@@ -86,7 +86,7 @@ class SubmissionHandler
     private function getCF7FormData()
     {
         $submission = \WPCF7_Submission::get_instance();
-        
+
         if (isset($submission) == false) {
             return null;
         }
@@ -99,7 +99,7 @@ class SubmissionHandler
     private function getAttributes()
     {
         $mapped = [];
-        
+
         $formData = $this->getCF7FormData();
         $mapping = Config::getAttributeMapping($this->form->id());
 
@@ -119,7 +119,7 @@ class SubmissionHandler
     private function getGlobalAttributes()
     {
         $mapped = [];
-        
+
         $formData = $this->getCF7FormData();
         $mapping = Config::getGlobalAttributeMapping($this->form->id());
 

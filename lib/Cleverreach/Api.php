@@ -1,8 +1,8 @@
 <?php
 
-namespace Pixelarbeit\Cleverreach;
+namespace pxlrbt\Cleverreach;
 
-use Pixelarbeit\Http\JsonClient;
+use pxlrbt\Http\JsonClient;
 
 
 

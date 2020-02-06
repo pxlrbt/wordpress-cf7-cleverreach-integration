@@ -1,9 +1,9 @@
 <?php
 
-namespace Pixelarbeit\Http;
+namespace pxlrbt\Http;
 
-use Pixelarbeit\Http\Exceptions\InvalidResponseException;
-use Pixelarbeit\Http\Exceptions\ConnectionException;
+use pxlrbt\Http\Exceptions\InvalidResponseException;
+use pxlrbt\Http\Exceptions\ConnectionException;
 
 
 

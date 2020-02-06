@@ -1,6 +1,5 @@
 {
-    "name": "pixelarbeit/contact-form-7-cleverreach",
-    "description": "Connects Contact Form 7 forms with Cleverreach.",
+    "name": "pxlrbt/contact-form-7-cleverreach",
     "type": "wp-plugin",
     "authors": [
         {
@@ -11,10 +10,10 @@
     "require": {},
     "autoload": {
         "psr-4": {
-            "Pixelarbeit\\CF7Cleverreach\\": "./classes",
-            "Pixelarbeit\\Http\\": "./lib/Http",
-            "Pixelarbeit\\Cleverreach\\": "./lib/Cleverreach",
-            "Pixelarbeit\\Wordpress\\": "./lib/Wordpress",
+            "pxlrbt\\CF7Cleverreach\\": "./classes",
+            "pxlrbt\\Http\\": "./lib/Http",
+            "pxlrbt\\Cleverreach\\": "./lib/Cleverreach",
+            "pxlrbt\\Wordpress\\": "./lib/Wordpress",
             "OAuth\\": "./lib/OAuth"
         }
     }

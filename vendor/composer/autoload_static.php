@@ -7,12 +7,12 @@ namespace Composer\Autoload;
 class ComposerStaticInitd2a0ffdf9a6d11c8b34b6f223f986c07
 {
     public static $prefixLengthsPsr4 = array (
-        'P' => 
+        'p' => 
         array (
-            'Pixelarbeit\\Wordpress\\' => 22,
-            'Pixelarbeit\\Http\\' => 17,
-            'Pixelarbeit\\Cleverreach\\' => 24,
-            'Pixelarbeit\\CF7Cleverreach\\' => 27,
+            'pxlrbt\\Wordpress\\' => 17,
+            'pxlrbt\\Http\\' => 12,
+            'pxlrbt\\Cleverreach\\' => 19,
+            'pxlrbt\\CF7Cleverreach\\' => 22,
         ),
         'O' => 
         array (
@@ -21,19 +21,19 @@ class ComposerStaticInitd2a0ffdf9a6d11c8b34b6f223f986c07
     );
 
     public static $prefixDirsPsr4 = array (
-        'Pixelarbeit\\Wordpress\\' => 
+        'pxlrbt\\Wordpress\\' => 
         array (
             0 => __DIR__ . '/../..' . '/lib/Wordpress',
         ),
-        'Pixelarbeit\\Http\\' => 
+        'pxlrbt\\Http\\' => 
         array (
             0 => __DIR__ . '/../..' . '/lib/Http',
         ),
-        'Pixelarbeit\\Cleverreach\\' => 
+        'pxlrbt\\Cleverreach\\' => 
         array (
             0 => __DIR__ . '/../..' . '/lib/Cleverreach',
         ),
-        'Pixelarbeit\\CF7Cleverreach\\' => 
+        'pxlrbt\\CF7Cleverreach\\' => 
         array (
             0 => __DIR__ . '/../..' . '/classes',
         ),

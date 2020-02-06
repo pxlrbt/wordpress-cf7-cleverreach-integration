@@ -1,6 +1,6 @@
 <?php
 
-namespace Pixelarbeit\Wordpress\Notifier;
+namespace pxlrbt\Wordpress\Notifier;
 
 
 /**

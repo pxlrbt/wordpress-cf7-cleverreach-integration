@@ -1,8 +1,8 @@
 <?php
 
-namespace Pixelarbeit\CF7Cleverreach\Controllers;
+namespace pxlrbt\CF7Cleverreach\Controllers;
 
-use Pixelarbeit\CF7Cleverreach\Config\Config;
+use pxlrbt\CF7Cleverreach\Config\Config;
 use WPCF7_ContactForm;
 
 
@@ -31,12 +31,12 @@ class FormConfigController
 	public function init($plugin)
 	{
         $this->plugin = $plugin;
-        add_action('wpcf7_save_contact_form', [$this, 'saveCF7Config'], 10, 1 ); 
+        add_action('wpcf7_save_contact_form', [$this, 'saveCF7Config'], 10, 1 );
         add_filter('wpcf7_editor_panels', [$this, 'registerEditorPanel'], 10, 1);
     }
 
 
-    
+
     public function registerEditorPanel($panels)
     {
         $panels['cleverreach-panel'] = [
@@ -61,7 +61,7 @@ class FormConfigController
         $form = WPCF7_ContactForm::get_current();
         return isset($form) ? $form->id() : null;
     }
-    
+
 
 
     public function getCF7FieldNames()
@@ -88,7 +88,7 @@ class FormConfigController
             return;
         }
 
-        $this->checkForOptions();        
+        $this->checkForOptions();
 
         $this->saveOptions();
         $this->saveAttributeMapping();
@@ -100,7 +100,7 @@ class FormConfigController
     private function checkForOptions()
     {
         $options = $_POST['wpcf7-cleverreach_options'];
-        
+
         if (empty($options['listId']) || empty($options['formId']) || empty($options['emailField'])) {
             $this->plugin->notifier->warning('Missing form configuration. Required: List Id, Form ID, Email Field.');
         }
@@ -110,7 +110,7 @@ class FormConfigController
     private function saveOptions()
     {
         $options = [];
-        
+
         $options['active'] = isset($_POST['wpcf7-cleverreach_options']['active']);
         $options['doubleOptIn'] = isset($_POST['wpcf7-cleverreach_options']['doubleOptIn']);
 
@@ -130,13 +130,13 @@ class FormConfigController
         }
 
         $mapping = [];
-        
+
         foreach ($_POST['wpcf7-cleverreach_attribute'] as $cf7Name => $cleverreachName) {
             if (empty($cleverreachName) == false) {
                 $mapping[$cf7Name] = strtolower($cleverreachName);
             }
         }
-        
+
         Config::saveAttributeMapping($this->getCurrentFormId(), $mapping);
     }
 
@@ -154,7 +154,7 @@ class FormConfigController
                 $mapping[$cf7Name] = strtolower($cleverreachName);
             }
         }
-        
+
         Config::saveGlobalAttributeMapping($this->getCurrentFormId(), $mapping);
     }
 
@@ -164,6 +164,6 @@ class FormConfigController
     public function printEditorPanel($form)
     {
         $this->options = Config::getOptions($this->getCurrentFormId());
-        include __DIR__ . '/../../views/cf7-cleverreach-panel.php';        
+        include __DIR__ . '/../../views/cf7-cleverreach-panel.php';
     }
 }
