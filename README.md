@@ -1,14 +1,14 @@
-# CleverReach® Addon for Contact Form 7®
+# CleverReach Addon for Contact Form 7
 
-Connects your Contact Form 7® forms with your CleverReach® account.
+Connects your Contact Form 7 forms with your CleverReach account.
 
 ## Features
-* Add/update CleverReach® recipients when a form is submitted including custom CleverReach® fields
-* Easy mapping between CF7 fields and CleverReach® fields
-* Easy connection to CleverReach® (Only credentials are needed)
+* Add/update CleverReach recipients when a form is submitted including custom CleverReach fields
+* Easy mapping between CF7 fields and CleverReach fields
+* Easy connection to CleverReach (Only credentials are needed)
 * Invidual settings per form (e.g. group, form, mapping, ...)
 * Choose between Single Opt-In and Double Opt-In
-* Choose a "required field" for CleverReach® submission
+* Choose a "required field" for CleverReach submission
 
 ## Support
 For support open an issue on github.
