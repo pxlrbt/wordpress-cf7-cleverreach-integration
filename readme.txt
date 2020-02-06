@@ -30,7 +30,7 @@ Connects your Contact Form 7 forms with your CleverReach account.
 
 = Github =
 This project is on github.
-<https://github.com/pixelarbeit/wordpress-contact-form-7-cleverreach>
+<https://github.com/pxlrbt/wordpress-contact-form-7-cleverreach>
 
 = Support =
 If you find a bug please open an issue on github.
