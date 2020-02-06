@@ -12,7 +12,7 @@ class ComposerStaticInitd2a0ffdf9a6d11c8b34b6f223f986c07
             'pxlrbt\\Wordpress\\' => 17,
             'pxlrbt\\Http\\' => 12,
             'pxlrbt\\Cleverreach\\' => 19,
-            'pxlrbt\\CF7Cleverreach\\' => 22,
+            'pxlrbt\\Cf7Cleverreach\\' => 22,
         ),
         'O' => 
         array (
@@ -33,7 +33,7 @@ class ComposerStaticInitd2a0ffdf9a6d11c8b34b6f223f986c07
         array (
             0 => __DIR__ . '/../..' . '/lib/Cleverreach',
         ),
-        'pxlrbt\\CF7Cleverreach\\' => 
+        'pxlrbt\\Cf7Cleverreach\\' => 
         array (
             0 => __DIR__ . '/../..' . '/classes',
         ),

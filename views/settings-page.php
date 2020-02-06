@@ -2,7 +2,7 @@
     <h1><?php _e('Settings', 'wordpress'); ?> › <?php echo esc_html(get_admin_page_title()); ?></h1>
 
     <?php
-        use pxlrbt\CF7Cleverreach\Plugin;
+        use pxlrbt\Cf7Cleverreach\Plugin;
         use pxlrbt\Cleverreach\Api as CleverreachApi;
 
         $redirectUrl = esc_url(admin_url('admin.php?page=cf7-cleverreach'));
@@ -31,5 +31,5 @@
     </table>
 
     <a class="button button-primary"
-        href="<?php echo CleverreachApi::generateAuthLink(Plugin::$clientId, $redirectUrl); ?>">Get Cleverreach API Token</a>
+        href="<?php echo CleverreachApi::generateAuthLink(Plugin::$clientId, $redirectUrl); ?>">Get CleverReach API Token</a>
 </div>

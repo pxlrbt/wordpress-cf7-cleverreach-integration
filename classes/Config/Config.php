@@ -1,6 +1,6 @@
 <?php
 
-namespace pxlrbt\CF7Cleverreach\Config;
+namespace pxlrbt\Cf7Cleverreach\Config;
 
 
 

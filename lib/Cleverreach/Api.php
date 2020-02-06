@@ -58,7 +58,7 @@ class Api
     public function validateResponse($response)
     {
         if (isset($response->error)) {
-            throw new \Exception("CF7 to Cleverreach:" . $response->error->message);
+            throw new \Exception("CF7 to CleverReach:" . $response->error->message);
         }
     }
 

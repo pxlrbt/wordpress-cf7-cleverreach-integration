@@ -1,6 +1,6 @@
-# Contact Form 7 - CleverReach® Addon
+# CleverReach® Addon for Contact Form 7®
 
-Connects your Contact Form 7 forms with your CleverReach® account.
+Connects your Contact Form 7® forms with your CleverReach® account.
 
 ## Features
 * Add/update CleverReach® recipients when a form is submitted including custom CleverReach® fields

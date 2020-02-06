@@ -9,6 +9,6 @@ return array(
     'pxlrbt\\Wordpress\\' => array($baseDir . '/lib/Wordpress'),
     'pxlrbt\\Http\\' => array($baseDir . '/lib/Http'),
     'pxlrbt\\Cleverreach\\' => array($baseDir . '/lib/Cleverreach'),
-    'pxlrbt\\CF7Cleverreach\\' => array($baseDir . '/classes'),
+    'pxlrbt\\Cf7Cleverreach\\' => array($baseDir . '/classes'),
     'OAuth\\' => array($baseDir . '/lib/OAuth'),
 );

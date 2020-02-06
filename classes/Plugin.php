@@ -1,11 +1,11 @@
 <?php
 
-namespace pxlrbt\CF7Cleverreach;
+namespace pxlrbt\Cf7Cleverreach;
 
-use pxlrbt\CF7Cleverreach\Config\Config;
-use pxlrbt\CF7Cleverreach\Controllers\FormConfigController;
-use pxlrbt\CF7Cleverreach\Controllers\SettingsPageController;
-use pxlrbt\CF7Cleverreach\CF7\SubmissionHandler;
+use pxlrbt\Cf7Cleverreach\Config\Config;
+use pxlrbt\Cf7Cleverreach\Controllers\FormConfigController;
+use pxlrbt\Cf7Cleverreach\Controllers\SettingsPageController;
+use pxlrbt\Cf7Cleverreach\CF7\SubmissionHandler;
 
 use pxlrbt\Cleverreach\Api as CleverreachApi;
 use pxlrbt\Wordpress\Logger\Logger;
@@ -18,7 +18,7 @@ class Plugin
     public static $name = 'cf7-cleverreach-integration';
     public static $prefix = 'wpcf7-cleverreach_';
     public static $version = '2.1.1';
-    public static $title = 'Contact Form 7 - Cleverreach Integration';
+    public static $title = 'CleverReach Integration for Contact Form 7';
 
     public static $clientId = 'dDHV6YpJm3';
     public static $clientSecret = 'ysqrbL2NNKTwGWphfWMRkZu1VA0kjnoS';
@@ -62,8 +62,8 @@ class Plugin
      */
     public function init()
     {
-        $this->notifier = new Notifier('CF7 to Cleverreach');
-        $this->logger = new Logger('CF7 to Cleverreach:');
+        $this->notifier = new Notifier('CF7 to CleverReach');
+        $this->logger = new Logger('CF7 to CleverReach:');
 
         $forms = FormConfigController::getInstance();
         $forms->init($this);
@@ -181,7 +181,7 @@ class Plugin
 
 
     /**
-     * Get Cleverreach API
+     * Get CleverReach API
      *
      * @return void
      * @author Dennis Koch <info@pixelarbeit.de>

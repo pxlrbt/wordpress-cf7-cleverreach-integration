@@ -1,5 +1,6 @@
 {
     "name": "pxlrbt/contact-form-7-cleverreach",
+    "description": "Connects Contact Form 7 forms with CleverReach.",
     "type": "wp-plugin",
     "authors": [
         {
@@ -10,7 +11,7 @@
     "require": {},
     "autoload": {
         "psr-4": {
-            "pxlrbt\\CF7Cleverreach\\": "./classes",
+            "pxlrbt\\Cf7Cleverreach\\": "./classes",
             "pxlrbt\\Http\\": "./lib/Http",
             "pxlrbt\\Cleverreach\\": "./lib/Cleverreach",
             "pxlrbt\\Wordpress\\": "./lib/Wordpress",

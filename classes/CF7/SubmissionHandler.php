@@ -1,11 +1,11 @@
 <?php
 
-namespace pxlrbt\CF7Cleverreach\CF7;
+namespace pxlrbt\Cf7Cleverreach\CF7;
 
 use pxlrbt\Cleverreach\Api as CleverreachApi;
 use pxlrbt\Wordpress\Notifier\Notifier;
 use pxlrbt\Wordpress\Logger\Logger;
-use pxlrbt\CF7Cleverreach\Config\Config;
+use pxlrbt\Cf7Cleverreach\Config\Config;
 use WPCF7_ContactForm;
 use WPCF7_Submission;
 
@@ -15,8 +15,8 @@ class SubmissionHandler
 {
 	public function __construct(CleverreachApi $api)
 	{
-        $this->notifier = new Notifier('CF7 to Cleverreach');
-        $this->logger = new Logger('CF7 to Cleverreach');
+        $this->notifier = new Notifier('CF7 to CleverReach');
+        $this->logger = new Logger('CF7 to CleverReach');
         $this->api = $api;
 	}
 

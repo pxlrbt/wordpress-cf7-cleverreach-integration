@@ -1,6 +1,6 @@
 <?php
-    use pxlrbt\CF7Cleverreach\Controllers\FormConfigController;
-    use pxlrbt\CF7Cleverreach\Config\Config;
+    use pxlrbt\Cf7Cleverreach\Controllers\FormConfigController;
+    use pxlrbt\Cf7Cleverreach\Config\Config;
 
     $fcc = FormConfigController::getInstance();
     $options = Config::getOptions($fcc->getCurrentFormId());
@@ -24,7 +24,7 @@
 ?>
 
 <div class="cleverreach-config">
-    <h2>Cleverreach Configuration</h2>
+    <h2>CleverReach Configuration</h2>
 
     <h3>Options</h3>
 
@@ -154,7 +154,7 @@
             <thead>
                 <tr>
                     <td>CF7 Field</td>
-                    <td>Cleverreach Attribute</td>
+                    <td>CleverReach Attribute</td>
                 </tr>
             </thead>
             <tbody>
@@ -183,7 +183,7 @@
             <thead>
                 <tr>
                     <td>CF7 Field</td>
-                    <td>Cleverreach Attribute</td>
+                    <td>CleverReach Attribute</td>
                 </tr>
             </thead>
             <tbody>

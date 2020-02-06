@@ -1,9 +1,9 @@
 <?php
 
-namespace pxlrbt\CF7Cleverreach\Controllers;
+namespace pxlrbt\Cf7Cleverreach\Controllers;
 
 use pxlrbt\Cleverreach\Api as CleverreachApi;
-use pxlrbt\CF7Cleverreach\Plugin;
+use pxlrbt\Cf7Cleverreach\Plugin;
 use pxlrbt\Wordpress\Notifier\Notifier;
 use WPCF7_ContactForm;
 use Exception;
@@ -34,7 +34,7 @@ class SettingsPageController
 	public function init($plugin)
 	{
         $this->plugin = $plugin;
-        $this->notifier = new Notifier('CF7 to Cleverreach:');
+        $this->notifier = new Notifier('CF7 to CleverReach:');
         add_action('admin_menu', [$this, 'registerMenu']);
     }
 
@@ -42,9 +42,10 @@ class SettingsPageController
 
     public function registerMenu()
     {
-        add_options_page(
-            'CF7 to Cleverreach',
-            'CF7 to Cleverreach',
+        add_submenu_page(
+            'wpcf7',
+            'CF7 to CleverReach',
+            'CF7 to CleverReach',
             'manage_options',
             'cf7-cleverreach',
             [$this, 'printPage']

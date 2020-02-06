@@ -1,15 +1,15 @@
 <?php
 /*
-Plugin Name: Contact Form 7 - Cleverreach Integration
-Description: Send Contact Form 7 form data to Cleverreach
-Version:     2.1.1
+Plugin Name: CleverReach Integration for Contact Form 7
+Description: Send Contact Form 7 form data to CleverReach
+Version:     2.1.2
 Author:      pixelarbeit
 Author URI:  https://pixelarbeit.de
 */
 
 require __DIR__ . '/vendor/autoload.php';
 
-use Pixelarbeit\CF7Cleverreach\Plugin;
+use pxlrbt\Cf7Cleverreach\Plugin;
 
 
 $plugin = Plugin::getInstance();

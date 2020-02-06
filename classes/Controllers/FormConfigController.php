@@ -1,8 +1,8 @@
 <?php
 
-namespace pxlrbt\CF7Cleverreach\Controllers;
+namespace pxlrbt\Cf7Cleverreach\Controllers;
 
-use pxlrbt\CF7Cleverreach\Config\Config;
+use pxlrbt\Cf7Cleverreach\Config\Config;
 use WPCF7_ContactForm;
 
 
@@ -40,7 +40,7 @@ class FormConfigController
     public function registerEditorPanel($panels)
     {
         $panels['cleverreach-panel'] = [
-            'title' => 'Cleverreach',
+            'title' => 'CleverReach',
             'callback' => [$this, 'printEditorPanel']
         ];
 
