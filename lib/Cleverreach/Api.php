@@ -18,11 +18,11 @@ class Api
 
 
 
-    // public function __construct($token, $listId, $formId)
     public function __construct($token = '')
     {
         $this->token = $token;
         $this->client = new JsonClient();
+        $this->client->debug = false;
     }
 
 
@@ -32,7 +32,7 @@ class Api
 
     public function request($url, $method = "GET", $data = null)
     {
-        $headers = ['Authorization: Bearer ' . $this->token];        
+        $headers = ['Authorization: Bearer ' . $this->token];
         $response = $this->client->request($method, $url, $data, $headers);
         return $response[1];
     }
@@ -47,7 +47,7 @@ class Api
     }
 
 
-    
+
     public function buildUrl($endpoint)
     {
         return self::$restUrl . $endpoint;
@@ -67,7 +67,7 @@ class Api
     public function getApiToken($clientId, $clientSecret, $code, $redirectUrl)
     {
         $data = [
-            'client_id' => $clientId, 
+            'client_id' => $clientId,
             'client_secret' => $clientSecret,
             'redirect_uri' => $redirectUrl,
             'grant_type' => 'authorization_code',
@@ -81,7 +81,7 @@ class Api
 
 
     /* API FUNCTIONS */
-    
+
     public function getContactByEmail($listId, $email)
     {
 
@@ -100,14 +100,14 @@ class Api
             'pagesize' => 1
 
         ]);
-        
+
         $this->validateResponse($result);
-        
-        return is_array($result) > 0 ? $result[0] : null;        
+
+        return is_array($result) > 0 ? $result[0] : null;
     }
-    
-    
-    
+
+
+
     public function updateContact($listId, $email, $tags = [], $attributes = [], $globalAttributes = [])
     {
         $url = $this->buildUrl('groups.json/' . $listId . '/receivers/' . $email);
@@ -115,14 +115,14 @@ class Api
             "email" => $email,
             "attributes" => $attributes,
             "tags" => $tags,
-            "global_attributes" => $globalAttributes            
+            "global_attributes" => $globalAttributes
         ]);
 
         $this->validateResponse($result);
 
         return $result;
     }
-    
+
 
 
     public function createContact($listId, $email, $active = false, $source = '', $tags = [], $attributes = [], $globalAttributes = [])
@@ -138,17 +138,17 @@ class Api
             "attributes" => $attributes,
             "global_attributes" => $globalAttributes
         ]);
-        
+
         $this->validateResponse($result);
 
         return $result;
     }
 
-    
+
 
     public function sendActivationMail($formId, $email)
     {
-        
+
         $doidata = [
             "user_ip" => $_SERVER['REMOTE_ADDR'],
             "user_agent" => $_SERVER['HTTP_USER_AGENT'],
