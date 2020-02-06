@@ -72,7 +72,7 @@ class SettingsPageController
     {
         $api = $this->plugin->getApi();
 
-        $redirectUrl = esc_url(admin_url('options-general.php?page=cf7-cleverreach'));
+        $redirectUrl = esc_url(admin_url('admin.php?page=cf7-cleverreach'));
 
         try {
             $result = $api->getApiToken(Plugin::$clientId, Plugin::$clientSecret, $code, $redirectUrl);

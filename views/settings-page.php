@@ -5,7 +5,7 @@
         use pxlrbt\CF7Cleverreach\Plugin;
         use pxlrbt\Cleverreach\Api as CleverreachApi;
 
-        $redirectUrl = esc_url(admin_url('options-general.php?page=cf7-cleverreach'));
+        $redirectUrl = esc_url(admin_url('admin.php?page=cf7-cleverreach'));
         $apiToken = get_option('wpcf7-cleverreach_api-token', null);
         $apiExpires = get_option('wpcf7-cleverreach_api-expires', null);
 
