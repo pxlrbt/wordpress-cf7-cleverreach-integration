@@ -101,6 +101,8 @@ class FormConfigController
     {
         $options = $_POST['wpcf7-cleverreach_options'];
 
+        if (!isset($options['active'])) return;
+
         if (empty($options['listId']) || empty($options['formId']) || empty($options['emailField'])) {
             $this->plugin->notifier->warning('Missing form configuration. Required: List Id, Form ID, Email Field.');
         }
