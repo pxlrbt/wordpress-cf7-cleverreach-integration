@@ -92,7 +92,6 @@ class FormConfigController
 
         $this->saveOptions();
         $this->saveAttributeMapping();
-        $this->saveGlobalAttributeMapping();
     }
 
 
@@ -124,43 +123,30 @@ class FormConfigController
     }
 
 
-
     private function saveAttributeMapping()
     {
-        if (isset($_POST['wpcf7-cleverreach_attribute']) == false) {
+        if (isset($_POST['wpcf7-cleverreach_mapping']) == false) {
             return;
         }
 
-        $mapping = [];
+        $localMapping = [];
+        $globalMapping = [];
 
-        foreach ($_POST['wpcf7-cleverreach_attribute'] as $cf7Name => $cleverreachName) {
-            if (empty($cleverreachName) == false) {
-                $mapping[$cf7Name] = strtolower($cleverreachName);
+        foreach ($_POST['wpcf7-cleverreach_mapping'] as $cf7Name => $attributeName) {
+            if (empty($attributeName)) continue;
+
+            list($group, $cleverreachName) = explode('--', $attributeName, 2);
+
+            if ($group == 'global') {
+                $globalMapping[$cf7Name] = strtolower($cleverreachName);
+            } else {
+                $localMapping[$cf7Name] = strtolower($cleverreachName);
             }
         }
 
-        Config::saveAttributeMapping($this->getCurrentFormId(), $mapping);
+        Config::saveAttributeMapping($this->getCurrentFormId(), $localMapping);
+        Config::saveGlobalAttributeMapping($this->getCurrentFormId(), $globalMapping);
     }
-
-
-
-    private function saveGlobalAttributeMapping()
-    {
-        if (isset($_POST['wpcf7-cleverreach_global_attribute']) == false) {
-            return;
-        }
-
-        $mapping = [];
-        foreach ($_POST['wpcf7-cleverreach_global_attribute'] as $cf7Name => $cleverreachName) {
-            if (empty($cleverreachName) == false) {
-                $mapping[$cf7Name] = strtolower($cleverreachName);
-            }
-        }
-
-        Config::saveGlobalAttributeMapping($this->getCurrentFormId(), $mapping);
-    }
-
-
 
     /* PRINTING FUNCTIONS */
     public function printEditorPanel($form)
