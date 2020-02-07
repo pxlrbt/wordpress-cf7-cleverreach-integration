@@ -4,7 +4,6 @@ namespace pxlrbt\Cf7Cleverreach\Controllers;
 
 use pxlrbt\Cleverreach\Api as CleverreachApi;
 use pxlrbt\Cf7Cleverreach\Plugin;
-use pxlrbt\Wordpress\Notifier\Notifier;
 use WPCF7_ContactForm;
 use Exception;
 
@@ -34,7 +33,7 @@ class SettingsPageController
 	public function init($plugin)
 	{
         $this->plugin = $plugin;
-        $this->notifier = new Notifier('CF7 to CleverReach:');
+        $this->notifier = $plugin->notifier;
         add_action('admin_menu', [$this, 'registerMenu']);
     }
 

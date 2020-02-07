@@ -2,6 +2,7 @@
 
 namespace pxlrbt\Wordpress\Notifier;
 
+use function sanitize_title;
 
 /**
  * Notification helper class for wordpress.
@@ -18,11 +19,11 @@ class Notifier
 
 
 
-    public function __construct($title)
+    public function __construct($name, $title)
     {
         $this->title = $title;
         $this->notifications = [];
-        $this->transientName = "notifications_" . self::$counter++;
+        $this->transientName = "notifications_" . sanitize_title($name);
 
         $this->init();
     }
@@ -85,6 +86,7 @@ class Notifier
         $notification->dismissible = true;
 
         $this->notifications[] = $notification;
+
         set_transient($this->transientName, $this->notifications);
     }
 
@@ -107,7 +109,6 @@ class Notifier
         }
 
         delete_transient($this->transientName);
-        // echo $message;
     }
 
 
