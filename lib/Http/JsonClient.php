@@ -14,12 +14,14 @@ class JsonClient
     private $bulkHandler;
     private $bulkRequests;
 
-
-
-    public function __contruct()
-    {
-
-    }
+    private $options = [
+        CURLOPT_SSL_VERIFYHOST => 1,
+        CURLOPT_SSL_VERIFYPEER => 1,
+        CURLOPT_POST => 1,
+        CURLOPT_RETURNTRANSFER => 1,
+        CURLOPT_HEADER => 1,
+        CURLOPT_VERBOSE => true
+    ];
 
 
 
@@ -34,7 +36,7 @@ class JsonClient
         $ch = curl_init();
         $data = json_encode($data, JSON_UNESCAPED_UNICODE);
         $this->addJsonHeaders($headers, $data);
-        $this->setOptions($ch, $method, $url, $data, $headers);
+        $this->prepareCurl($ch, $method, $url, $data, $headers);
 
         $response = curl_exec($ch);
 
@@ -102,7 +104,11 @@ class JsonClient
         return $this->request('DELETE', $url, $data = '', $headers = []);
     }
 
-
+    public function setOption($key, $value)
+    {
+        $this->options[$key] = $value;
+        return $this;
+    }
 
     private function addJsonHeaders(&$headers, $json)
     {
@@ -112,24 +118,19 @@ class JsonClient
 
 
 
-    private function setOptions(&$ch, $method, $url, $data, $headers)
+    private function prepareCurl(&$ch, $method, $url, $data, $headers)
     {
-        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
-        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
-        curl_setopt($ch, CURLOPT_URL, $url);
-        curl_setopt($ch, CURLOPT_POST, 1);
+        foreach ($this->options as $key => $value) {
+            curl_setopt($ch, $key , $value);
+        }
+
         curl_setopt($ch, CURLINFO_HEADER_OUT , $this->debug);
-        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $method);
+
+        curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
-
-        curl_setopt($ch, CURLOPT_HEADER, 1);
-
-        curl_setopt($ch, CURLOPT_VERBOSE, true);
+        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $method);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
     }
-
-
 
     public function initBulkRequest()
     {
