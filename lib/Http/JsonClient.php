@@ -15,7 +15,7 @@ class JsonClient
     private $bulkRequests;
 
     private $options = [
-        CURLOPT_SSL_VERIFYHOST => 1,
+        CURLOPT_SSL_VERIFYHOST => 2,
         CURLOPT_SSL_VERIFYPEER => 1,
         CURLOPT_POST => 1,
         CURLOPT_RETURNTRANSFER => 1,
