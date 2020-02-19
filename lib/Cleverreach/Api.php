@@ -3,7 +3,7 @@
 namespace pxlrbt\Cleverreach;
 
 use pxlrbt\Http\JsonClient;
-
+use Exception;
 
 
 class Api
@@ -58,7 +58,7 @@ class Api
     public function validateResponse($response)
     {
         if (isset($response->error)) {
-            throw new \Exception("CF7 to CleverReach:" . $response->error->message);
+            throw new Exception("CF7 to CleverReach:" . $response->error->message);
         }
     }
 
