@@ -89,7 +89,7 @@ class Logger
     public function log($level, $msg, $context = [])
     {
         error_log(
-            "[" . date('Y-m-d H:i:s') . "]" . "\t"
+            "\n[" . date('Y-m-d H:i:s') . "]" . "\t"
                 . strtoupper($level)  . "\t"
                 . (!empty($this->prefix) ? $this->prefix . "\t" : '')
                 . $msg
