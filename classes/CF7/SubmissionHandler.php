@@ -2,13 +2,14 @@
 
 namespace pxlrbt\Cf7Cleverreach\CF7;
 
-use pxlrbt\Cleverreach\Api as CleverreachApi;
-use pxlrbt\Wordpress\Notifier\Notifier;
-use pxlrbt\Wordpress\Logger\Logger;
-use pxlrbt\Cf7Cleverreach\Config\Config;
-use pxlrbt\Cf7Cleverreach\Plugin;
+use pxlrbt\Cf7Cleverreach\Vendor\Monolog\Logger;
+use pxlrbt\Cf7Cleverreach\Vendor\Monolog\Handler\StreamHandler;
 use WPCF7_ContactForm;
 use WPCF7_Submission;
+
+use pxlrbt\Cleverreach\Api as CleverreachApi;
+use pxlrbt\Cf7Cleverreach\Config\Config;
+use pxlrbt\Cf7Cleverreach\Plugin;
 
 
 
@@ -16,10 +17,12 @@ class SubmissionHandler
 {
 	public function __construct(CleverreachApi $api)
 	{
-        $this->logger = new Logger('cf7-cleverreach');
         $this->api = $api;
         $this->plugin = Plugin::getInstance();
         $this->notifier = $this->plugin->notifier;
+
+        $this->logger = new Logger('cf7-cleverreach');
+        $this->logger->pushHandler(new StreamHandler(WP_CONTENT_DIR . '/cf7-cleverreach.log'));
 	}
 
 
@@ -108,7 +111,7 @@ class SubmissionHandler
 
     private function getCF7FormData()
     {
-        $submission = \WPCF7_Submission::get_instance();
+        $submission = WPCF7_Submission::get_instance();
 
         if (isset($submission) == false) {
             return null;
