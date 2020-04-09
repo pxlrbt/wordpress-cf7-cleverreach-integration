@@ -11,11 +11,21 @@ class Logger
 {
 
     protected $prefix;
+    protected $file;
 
+    public function __construct($name)
+    {
+        $this->file = WP_CONTENT_DIR . '/' . $name . '.log';
+    }
 
-    public function __construct($prefix = "")
+    public function setPrefix($prefix)
     {
         $this->prefix = $prefix;
+    }
+
+    public function setFile($file)
+    {
+        $this->file = $file;
     }
 
 
@@ -79,11 +89,13 @@ class Logger
     public function log($level, $msg, $context = [])
     {
         error_log(
-            "[" . date('Y-m-d H:i:s') . "]" . "\t"
-            . strtoupper($level)  . "\t"
-            . ($this->prefix !== '' ? $this->prefix . "\t" : '')
-            . $msg
-            . (empty($context) === false ? "\n\t\t" . print_r($context, true) : '')
+            "\n[" . date('Y-m-d H:i:s') . "]" . "\t"
+                . strtoupper($level)  . "\t"
+                . (!empty($this->prefix) ? $this->prefix . "\t" : '')
+                . $msg
+                . (empty($context) === false ? "\n" . print_r($context, true) : ''),
+            3,
+            $this->file
         );
     }
 }

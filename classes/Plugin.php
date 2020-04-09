@@ -8,7 +8,6 @@ use pxlrbt\Cf7Cleverreach\Controllers\SettingsPageController;
 use pxlrbt\Cf7Cleverreach\CF7\SubmissionHandler;
 
 use pxlrbt\Cleverreach\Api as CleverreachApi;
-use pxlrbt\Wordpress\Logger\Logger;
 use pxlrbt\Wordpress\Notifier\Notifier;
 
 
@@ -62,8 +61,7 @@ class Plugin
      */
     public function init()
     {
-        $this->notifier = new Notifier('CF7 to CleverReach');
-        $this->logger = new Logger('CF7 to CleverReach:');
+        $this->notifier = new Notifier(self::$prefix, 'CF7 to CleverReach');
 
         $forms = FormConfigController::getInstance();
         $forms->init($this);

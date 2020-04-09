@@ -6,6 +6,7 @@ use pxlrbt\Cleverreach\Api as CleverreachApi;
 use pxlrbt\Wordpress\Notifier\Notifier;
 use pxlrbt\Wordpress\Logger\Logger;
 use pxlrbt\Cf7Cleverreach\Config\Config;
+use pxlrbt\Cf7Cleverreach\Plugin;
 use WPCF7_ContactForm;
 use WPCF7_Submission;
 
@@ -15,9 +16,10 @@ class SubmissionHandler
 {
 	public function __construct(CleverreachApi $api)
 	{
-        $this->notifier = new Notifier('CF7 to CleverReach');
-        $this->logger = new Logger('CF7 to CleverReach');
+        $this->logger = new Logger('cf7-cleverreach');
         $this->api = $api;
+        $this->plugin = Plugin::getInstance();
+        $this->notifier = $this->plugin->notifier;
 	}
 
 
@@ -28,11 +30,16 @@ class SubmissionHandler
         $options = Config::getOptions($form->id());
 
         if (empty($options['listId']) || empty($options['formId']) || empty($options['emailField'])) {
-            $this->notifier->error('Missing form configuration. Required: List Id, Form ID, Email Field.');
+            $this->notifier->error('Missing form configuration. Required: List ID, form ID, email field.');
+            $this->logger->error('Did not process data: Missing configuration (list ID, form ID, email field) on CF7 form ' . $form->id());
             return;
         }
 
         if (!empty($options['requireField']) && empty($_POST[$options['requireField']])) {
+            $this->logger->debug('Did not process data: Required field not set.', [
+                'formId' => $form->id(),
+                'options' => $options
+            ]);
             return;
         }
 
@@ -40,6 +47,11 @@ class SubmissionHandler
         $email = $formData[$options['emailField']];
 
         if (empty($email)) {
+            $this->logger->warn('Did not process data: No email found.', [
+                'formId' => $form->id(),
+                'formData' => $formData,
+                'options' => $options
+            ]);
             return;
         }
 
@@ -75,8 +87,19 @@ class SubmissionHandler
                 );
             }
         } catch (\Exception $e) {
-            $this->logger->error($e->getMessage());
-            $this->notifier->error('Error while transferring data from cf7 to cleverreach. Details in log.');
+            $this->notifier->error('Error while transferring data from Contact Form 7 to CleverReach. Details in log.');
+            $this->logger->error('Failed adding/updating user.', [
+                'message' => $e->getMessage(),
+                'data' => [
+                    'email' => $email,
+                    'listId' => $options['listId'],
+                    'tags' => $tags,
+                    'doubleOptIn' => $activate,
+                    'source' => $options['source'],
+                    'attributes' => $attributes,
+                    'globalAttributes' => $globalAttributes
+                ]
+            ]);
             return;
         }
     }

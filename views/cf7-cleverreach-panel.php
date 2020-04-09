@@ -107,7 +107,7 @@
             </tr>
             <tr>
                 <td colspan="2">
-                    <small>Only send data to cleverreach if this field is set.</small>
+                    <small>Only send data to CleverReach if this field is set.</small>
                 </td>
             </tr>
             <tr class="hasNote">
@@ -118,7 +118,7 @@
             </tr>
             <tr>
                 <td colspan="2">
-                    <small>Creates deactivated recipient and sends an confirmation email (GDPR compliant)</small>
+                    <small>Creates recipient as inactive and sends an confirmation email (GDPR compliant)</small>
                 </td>
             </tr>
             <tr class="hasNote">
@@ -129,7 +129,7 @@
             </tr>
             <tr>
                 <td colspan="2">
-                    <small>Value for cleverreach source field.</small>
+                    <small>Value for CleverReachs internal tag field.</small>
                 </td>
             </tr>
             <tr class="hasNote">
@@ -140,7 +140,7 @@
             </tr>
             <tr>
                 <td colspan="2">
-                    <small>Comma seperated list of tags.</small>
+                    <small>Comma seperated list tags for CleverReachs internal tag field.</small>
                 </td>
             </tr>
         </tbody>
@@ -148,12 +148,12 @@
 
     <?php if (isset($options['listId'])): ?>
         <br><br><br>
-        <h3>Mapping: List Fields</h3>
+        <h3>Mapping</h3>
 
         <table class="mapping">
             <thead>
                 <tr>
-                    <td>CF7 Field</td>
+                    <td>Contact Form 7 Field</td>
                     <td>CleverReach Attribute</td>
                 </tr>
             </thead>
@@ -162,43 +162,24 @@
                     <tr>
                         <th><?php echo $field; ?></th>
                         <td>
-                            <select name="wpcf7-cleverreach_attribute[<?php echo $field; ?>]">
+                            <select name="wpcf7-cleverreach_mapping[<?php echo $field; ?>]">
                                 <option value=""></option>
-                                <?php foreach ($attributes as $attr): ?>
-                                    <option value="<?php echo $attr->name; ?>"
-                                    <?php if (isset($attributeMapping[$field]) && $attributeMapping[$field] == $attr->name) { echo "selected"; } ?>>
-                                        <?php echo $attr->description; ?>
-                                    </option>
-                                <?php endforeach; ?>
-                            </select>
-                        </td>
-                    </tr>
-                <?php endforeach; ?>
-            </tbody>
-        </table>
-
-        <br><br><br>
-        <h3>Mapping: Intergroup Fields</h3>
-        <table class="mapping">
-            <thead>
-                <tr>
-                    <td>CF7 Field</td>
-                    <td>CleverReach Attribute</td>
-                </tr>
-            </thead>
-            <tbody>
-                <?php foreach ($fcc->getCF7FieldNames() as $field): ?>
-                    <tr>
-                        <th><?php echo $field; ?></th>
-                        <td>
-                            <select name="wpcf7-cleverreach_global_attribute[<?php echo $field; ?>]">
-                                <option value=""></option>
-                                <?php foreach ($globalAttributes as $attr): ?>
-                                    <option value="<?php echo $attr->name; ?>"
-                                    <?php if (isset($globalAttributeMapping[$field]) && $globalAttributeMapping[$field] == $attr->name) { echo "selected"; } ?>>
-                                        <?php echo $attr->description; ?>
-                                    </option>
-                                <?php endforeach; ?>
+                                <optgroup label="List Fields">
+                                    <?php foreach ($attributes as $attr): ?>
+                                        <option value="local--<?php echo $attr->name; ?>"
+                                        <?php if (isset($attributeMapping[$field]) && $attributeMapping[$field] == $attr->name) { echo "selected"; } ?>>
+                                            <?php echo $attr->description; ?>
+                                        </option>
+                                    <?php endforeach; ?>
+                                </optgroup>
+                                <optgroup label="Intergroup Fields">
+                                    <?php foreach ($globalAttributes as $attr): ?>
+                                        <option value="global--<?php echo $attr->name; ?>"
+                                        <?php if (isset($globalAttributeMapping[$field]) && $globalAttributeMapping[$field] == $attr->name) { echo "selected"; } ?>>
+                                            <?php echo $attr->description; ?>
+                                        </option>
+                                    <?php endforeach; ?>
+                                </optgroup>
                             </select>
                         </td>
                     </tr>
