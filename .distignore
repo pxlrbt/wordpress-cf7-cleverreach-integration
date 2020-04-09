@@ -2,7 +2,6 @@
 /.git
 /.github
 /node_modules
-/vendor
 
 .distignore
 .gitignore
@@ -10,6 +9,8 @@
 .zipignore
 .git
 *.zip
+Makefile
+README.md
 phpcompatinfo.json
 phpcompatinfo.phar
 composer.json
