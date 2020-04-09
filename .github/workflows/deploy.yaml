@@ -23,6 +23,7 @@ jobs:
       run: |
         php-scoper add-prefix
         cd build/ && composer dump-autoload
+        mv build/* ../
 
     - name: WordPress Plugin Deploy
       uses: 10up/action-wordpress-plugin-deploy@master
