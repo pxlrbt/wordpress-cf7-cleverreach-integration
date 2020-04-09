@@ -51,6 +51,12 @@ If you find a bug please open an issue on github.
 
 == Changelog ==
 
+= 2.2 =
+* Merge global and local attributes in one select
+* Fix: Disable checks when integration is not active
+* Fix: Enable SSL verification in JsonClient
+* Fix: Improve logs and notifications
+
 = 2.1.2 =
 * Update name to comply with Contact Form 7 trademark policy
 * Move settings to Contact Form 7 submenu
