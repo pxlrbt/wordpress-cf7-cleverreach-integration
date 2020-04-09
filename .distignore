@@ -10,7 +10,6 @@
 .git
 *.zip
 Makefile
-README.md
 phpcompatinfo.json
 phpcompatinfo.phar
 composer.json
