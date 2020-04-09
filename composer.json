@@ -16,8 +16,15 @@
         "psr-4": {
             "pxlrbt\\Cf7Cleverreach\\": "./classes",
             "pxlrbt\\Cleverreach\\": "./lib/Cleverreach",
-            "pxlrbt\\Wordpress\\": "./lib/Wordpress",
-            "OAuth\\": "./lib/OAuth"
+            "pxlrbt\\Wordpress\\": "./lib/Wordpress"
         }
+    },
+
+    "scripts": {
+        "build": [
+            "rm -rf build/",
+            "php-scoper add-prefix",
+            "cd build/ && composer dump-autoload"
+        ]
     }
 }

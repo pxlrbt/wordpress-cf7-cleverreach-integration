@@ -2,8 +2,6 @@
 
 namespace pxlrbt\Wordpress\Notifier;
 
-use function sanitize_title;
-
 /**
  * Notification helper class for wordpress.
  * Every notification is only shown once and deleted afterwards.
