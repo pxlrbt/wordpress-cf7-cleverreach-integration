@@ -2,10 +2,8 @@
 
 namespace pxlrbt\Cleverreach;
 
-use pxlrbt\Http\JsonClient;
+use GuzzleHttp\Client;
 use Exception;
-
-
 class Api
 {
     private $token;
@@ -21,7 +19,7 @@ class Api
     public function __construct($token = '')
     {
         $this->token = $token;
-        $this->client = new JsonClient();
+        $this->client = new Client();
         $this->client->debug = false;
     }
 
@@ -33,8 +31,13 @@ class Api
     public function request($url, $method = "GET", $data = null)
     {
         $headers = ['Authorization: Bearer ' . $this->token];
-        $response = $this->client->request($method, $url, $data, $headers);
-        return $response[1];
+
+        $response = $this->client->request($method, $url, [
+            'json' => $data,
+            'headers' => $headers
+        ]);
+
+        return $response->getBody();
     }
 
 

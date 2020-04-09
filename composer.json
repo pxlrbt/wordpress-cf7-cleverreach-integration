@@ -1,5 +1,5 @@
 {
-    "name": "pxlrbt/contact-form-7-cleverreach",
+    "name": "pxlrbt/wordpress-cf7-cleverreach-integration",
     "description": "Connects Contact Form 7 forms with CleverReach.",
     "type": "wp-plugin",
     "authors": [
@@ -8,7 +8,11 @@
             "email": "info@pixelarbeit.de"
         }
     ],
-    "require": {},
+    "require": {
+        "symfony/var-dumper": "^5.0",
+        "wikimedia/composer-merge-plugin": "^1.4",
+        "guzzlehttp/guzzle": "~6.0"
+    },
     "autoload": {
         "psr-4": {
             "pxlrbt\\Cf7Cleverreach\\": "./classes",
@@ -17,5 +21,32 @@
             "pxlrbt\\Wordpress\\": "./lib/Wordpress",
             "OAuth\\": "./lib/OAuth"
         }
+    },
+
+    "scripts": {
+        "post-install-cmd": [
+            "\"vendor/bin/mozart\" compose",
+            "composer dump-autoload"
+        ],
+        "post-update-cmd": [
+            "\"vendor/bin/mozart\" compose",
+            "composer dump-autoload"
+        ]
+    },
+
+    "extra": {
+        "mozart": {
+            "dep_namespace": "pxlrbt\\Cf7Cleverreach\\Dependencies\\",
+            "dep_directory": "/dep/vendors/",
+            "classmap_directory": "/dep/classmap/",
+            "classmap_prefix": "PXLRBT_CF7CR_",
+            "packages": [
+                "symfony/var-dumper"
+            ]
+        }
+    },
+
+    "require-dev": {
+        "coenjacobs/mozart": "^0.5.1"
     }
 }
