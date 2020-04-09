@@ -11,3 +11,4 @@ package.json
 package-lock.json
 webpack.mix.js
 yarn*
+vendor
