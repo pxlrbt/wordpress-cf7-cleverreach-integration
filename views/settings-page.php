@@ -1,10 +1,11 @@
+<?php
+    use pxlrbt\Cf7Cleverreach\Plugin;
+    use pxlrbt\Cleverreach\Api as CleverreachApi;
+?>
 <div class="wrap">
     <h1><?php _e('Settings', 'wordpress'); ?> › <?php echo esc_html(get_admin_page_title()); ?></h1>
 
     <?php
-        use pxlrbt\Cf7Cleverreach\Plugin;
-        use pxlrbt\Cleverreach\Api as CleverreachApi;
-
         $redirectUrl = esc_url(admin_url('admin.php?page=cf7-cleverreach'));
         $apiToken = get_option('wpcf7-cleverreach_api-token', null);
         $apiExpires = get_option('wpcf7-cleverreach_api-expires', null);
