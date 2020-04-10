@@ -8,10 +8,12 @@
             "email": "info@pixelarbeit.de"
         }
     ],
+
     "require": {
         "guzzlehttp/guzzle": "~6.0",
         "monolog/monolog": "^2.0"
     },
+
     "autoload": {
         "psr-4": {
             "pxlrbt\\Cf7Cleverreach\\": "./classes",
@@ -21,10 +23,17 @@
     },
 
     "scripts": {
+        "post-install-cmd": "@build",
+        "post-update-cmd": "@build",
         "build": [
-            "rm -rf build/",
-            "php-scoper add-prefix",
-            "cd build/ && composer dump-autoload"
+            "rm -rf ./vendor-prefixed",
+            "php-scoper add-prefix --output-dir=./vendor-prefixed",
+            "composer config vendor-dir ./vendor-prefixed/",
+            "composer dump-autoload",
+            "composer config vendor-dir ./vendor/"
         ]
+    },
+    "config": {
+        "vendor-dir": "./vendor/"
     }
 }

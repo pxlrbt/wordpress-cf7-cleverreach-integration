@@ -7,10 +7,10 @@ Author:      pixelarbeit
 Author URI:  https://pixelarbeit.de
 */
 
-require __DIR__ . '/vendor/autoload.php';
+
+require __DIR__ . '/vendor-prefixed/autoload.php';
 
 use pxlrbt\Cf7Cleverreach\Plugin;
-
 
 $plugin = Plugin::getInstance();
 $plugin->init();

@@ -2,13 +2,16 @@
 /.git
 /.github
 /node_modules
+/vendor
+/vendor-bin
 
 .distignore
 .gitignore
 .zipignore
 .git
 *.zip
-scoper.in.php
+
+scoper.inc.php
 Makefile
 phpcompatinfo.json
 phpcompatinfo.phar

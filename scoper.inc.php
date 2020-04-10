@@ -6,7 +6,7 @@ use Isolated\Symfony\Component\Finder\Finder;
 
 return [
     // The prefix configuration. If a non null value will be used, a random prefix will be generated.
-    'prefix' => null,
+    'prefix' => 'pxlrbt\\Cf7Cleverreach\\Vendor',
 
     // By default when running php-scoper add-prefix, it will prefix all relevant code found in the current working
     // directory. You can however define which files should be scoped by defining a collection of Finders in the
@@ -14,9 +14,6 @@ return [
     //
     // For more see: https://github.com/humbug/php-scoper#finders-and-paths
     'finders' => [
-        Finder::create()->files()->in('classes'),
-        Finder::create()->files()->in('lib'),
-        Finder::create()->files()->in('views'),
         Finder::create()
             ->files()
             ->ignoreVCS(true)
@@ -29,18 +26,13 @@ return [
                 'Tests',
                 'vendor-bin',
             ])
-            ->in('vendor'),
-        Finder::create()->append([
-            'bootstrap.php',
-            'composer.json',
-        ]),
+            ->in('vendor')
     ],
 
     // Whitelists a list of files. Unlike the other whitelist related features, this one is about completely leaving
     // a file untouched.
     // Paths are relative to the configuration file unless if they are already absolute
     'files-whitelist' => [
-        'src/a-whitelisted-file.php',
     ],
 
     // When scoping PHP files, there will be scenarios where some of the code being scoped indirectly references the
@@ -67,6 +59,9 @@ return [
     //
     // Fore more see https://github.com/humbug/php-scoper#whitelist
     'whitelist' => [
+        // 'pxlrbt\Cf7Cleverreach',
+        // 'pxlrbt\Wordpress',
+        // 'pxlrbt\Cleverreach',
         // 'PHPUnit\Framework\TestCase',   // A specific class
         // 'PHPUnit\Framework\*',          // The whole namespace
         // '*',                            // Everything
