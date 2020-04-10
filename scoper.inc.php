@@ -22,7 +22,6 @@ return [
             ->ignoreVCS(true)
             ->notName('/LICENSE|.*\\.md|.*\\.dist|Makefile|composer\\.json|composer\\.lock/')
             ->exclude([
-                'wikimedia',
                 'doc',
                 'test',
                 'test_old',
