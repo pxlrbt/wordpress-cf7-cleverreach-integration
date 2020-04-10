@@ -1,5 +1,5 @@
-name: 'php-scoper'
-description: 'Runs php-scoper'
+name: 'composer-php-scoper'
+description: 'Runs composer'
 runs:
   using: 'docker'
   image: 'Dockerfile'
