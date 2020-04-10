@@ -4,7 +4,7 @@ Tags: contact form 7, cf7, cleverreach, contact form 7 addon, contact form 7 int
 Tested up to: 5.3.2 \
 Requires at least: 4.6 \
 Requires PHP: 5.5 \
-Stable tag: 2.2 \
+Stable tag: 2.3 \
 License: GPLv3 or later \
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
