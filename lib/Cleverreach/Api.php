@@ -2,8 +2,9 @@
 
 namespace pxlrbt\Cleverreach;
 
-use GuzzleHttp\Client;
+use pxlrbt\Cf7Cleverreach\Vendor\GuzzleHttp\Client;
 use Exception;
+
 class Api
 {
     private $token;
@@ -20,7 +21,6 @@ class Api
     {
         $this->token = $token;
         $this->client = new Client();
-        $this->client->debug = false;
     }
 
 
@@ -30,14 +30,21 @@ class Api
 
     public function request($url, $method = "GET", $data = null)
     {
-        $headers = ['Authorization: Bearer ' . $this->token];
+        $headers = ['Authorization' => 'Bearer ' . $this->token];
 
         $response = $this->client->request($method, $url, [
             'json' => $data,
             'headers' => $headers
         ]);
 
-        return $response->getBody();
+        $content = $response->getBody()->getContents();
+        $json = json_decode($content);
+
+        if ($json === null) {
+            throw new Exception('Invalid JSON response.');
+        }
+
+        return $json;
     }
 
 
