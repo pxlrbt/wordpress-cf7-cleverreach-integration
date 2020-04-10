@@ -5,10 +5,10 @@
 
 .distignore
 .gitignore
-
 .zipignore
 .git
 *.zip
+scoper.in.php
 Makefile
 phpcompatinfo.json
 phpcompatinfo.phar
