@@ -1,11 +1,12 @@
 # CleverReach Integration for Contact Form 7
-Contributors: pixelarbeit \
-Tags: contact form 7, cf7, cleverreach, contact form 7 addon, contact form 7 integration \
-Tested up to: 5.4 \
-Requires at least: 4.6 \
-Requires PHP: 5.5 \
-Stable tag: 2.3 \
-License: GPLv3 or later \
+
+Contributors: pixelarbeit
+Tags: contact form 7, cf7, cleverreach, contact form 7 addon, contact form 7 integration
+Tested up to: 5.4
+Requires at least: 4.6
+Requires PHP: 5.5
+Stable tag: 2.3
+License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
 Add new recipients to CleverReach from your Contact Form 7 forms.
@@ -15,6 +16,7 @@ Add new recipients to CleverReach from your Contact Form 7 forms.
 Connects your Contact Form 7 forms with your CleverReach account.
 
 ### Features
+
 * Add/update CleverReach recipients when a form is submitted including custom CleverReach fields
 * Easy mapping between CF7 fields and CleverReach fields
 * Easy connection to CleverReach (Only credentials are needed)
@@ -23,12 +25,14 @@ Connects your Contact Form 7 forms with your CleverReach account.
 * Choose a "required field" for CleverReach submission
 
 ### Requires
+
 * PHP >= 5.5
 * PHP cURL Extension
 * Contact Form 7 >= 4.5
 * CleverReach Account
 
 ### Support
+
 If you find a bug please open an issue on github.
 
 ### Links
@@ -37,6 +41,7 @@ If you find a bug please open an issue on github.
 
 
 ## Configuration
+
 1. Go to Settings > CF7 to CleverReach
 1. Click "Get CleverReach API token". You will be redirected to CleverReach.
 1. Authenticate against CleverReach and give access to the plugin. You will be redirected back to Wordpress and should see the generated API token.
@@ -45,12 +50,14 @@ If you find a bug please open an issue on github.
 
 
 ## Installation
+
 1. Upload the plugin files to the `/wp-content/plugins/cf7-cleverreach-integration` directory, or install the plugin through the WordPress plugins screen directly.
 1. Activate the plugin through the 'Plugins' screen in WordPress
 
 
 
 ## Screenshots
+
 1. Get CleverReach API Token via settings page
 2. Configure form
 
@@ -61,7 +68,7 @@ If you find a bug please open an issue on github.
 ### 2.3
 * Refactor: Use guzzle as http client
 * Refactor: Use monolog as logger
-* Refactor: Use PHP-Scoper
+* Refactor: Use php-Scoper
 
 ### 2.2
 * Merge global and local attributes in one select
