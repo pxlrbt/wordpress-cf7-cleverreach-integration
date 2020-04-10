@@ -1,7 +1,7 @@
 # CleverReach Integration for Contact Form 7
 Contributors: pixelarbeit \
 Tags: contact form 7, cf7, cleverreach, contact form 7 addon, contact form 7 integration \
-Tested up to: 5.3.2 \
+Tested up to: 5.4 \
 Requires at least: 4.6 \
 Requires PHP: 5.5 \
 Stable tag: 2.3 \
