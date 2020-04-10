@@ -51,6 +51,11 @@ If you find a bug please open an issue on github.
 
 ## Changelog
 
+### 2.3
+* Refactor: Use guzzle as http client
+* Refactor: Use monolog as logger
+* Refactor: Use PHP-Scoper
+
 ### 2.2
 * Merge global and local attributes in one select
 * Fix: Disable checks when integration is not active
