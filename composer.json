@@ -34,6 +34,7 @@
         ]
     },
     "config": {
-        "vendor-dir": "./vendor/"
+        "vendor-dir": "./vendor/",
+        "autoloader-suffix": "2aaadb9787f9f5107bce3305e4c3b064"
     }
 }
