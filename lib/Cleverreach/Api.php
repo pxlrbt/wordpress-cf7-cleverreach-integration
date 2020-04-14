@@ -84,8 +84,18 @@ class Api
             'code' => $code
         ];
 
-        $response = $this->client->request('POST', self::$tokenUrl, $data, []);
-        return $response[1];
+        $response = $this->client->request('POST', self::$tokenUrl, [
+            'json' => $data
+        ]);
+
+        $content = $response->getBody()->getContents();
+        $json = json_decode($content);
+
+        if ($json === null) {
+            throw new Exception('Invalid JSON response.');
+        }
+
+        return $json;
     }
 
 
