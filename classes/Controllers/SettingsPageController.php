@@ -34,6 +34,7 @@ class SettingsPageController
 	{
         $this->plugin = $plugin;
         $this->notifier = $plugin->notifier;
+        $this->logger = $plugin->logger;
         add_action('admin_menu', [$this, 'registerMenu']);
     }
 
@@ -77,11 +78,13 @@ class SettingsPageController
         try {
             $result = $api->getApiToken(Plugin::$clientId, Plugin::$clientSecret, $code, $redirectUrl);
         } catch (Exception $e) {
-            $this->notifier->printNotification('error', 'Unexpected error.');
+            $this->logger->error($e->getMessage(), [$e]);
+            $this->notifier->printNotification('error', $e->getMessage());
             return;
         }
 
         if (isset($result->error_description)) {
+            $this->logger->error($e->error_description, [$result]);
             $this->notifier->printNotification('error', 'Could not retrieve api token: ' . $result->error_description);
             return;
         }

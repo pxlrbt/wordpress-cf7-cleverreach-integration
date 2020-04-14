@@ -2,8 +2,6 @@
 
 namespace pxlrbt\Cf7Cleverreach\CF7;
 
-use pxlrbt\Cf7Cleverreach\Vendor\Monolog\Logger;
-use pxlrbt\Cf7Cleverreach\Vendor\Monolog\Handler\StreamHandler;
 use WPCF7_ContactForm;
 use WPCF7_Submission;
 
@@ -20,9 +18,7 @@ class SubmissionHandler
         $this->api = $api;
         $this->plugin = Plugin::getInstance();
         $this->notifier = $this->plugin->notifier;
-
-        $this->logger = new Logger('cf7-cleverreach');
-        $this->logger->pushHandler(new StreamHandler(WP_CONTENT_DIR . '/cf7-cleverreach.log'));
+        $this->logger = $this->plugin->logger;
 	}
 
 
