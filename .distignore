@@ -12,6 +12,7 @@
 *.zip
 
 scoper.inc.php
+scoper.fix-autoloader.php
 Makefile
 phpcompatinfo.json
 phpcompatinfo.phar

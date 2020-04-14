@@ -30,11 +30,12 @@
             "php-scoper add-prefix --output-dir=./vendor-prefixed",
             "composer config vendor-dir ./vendor-prefixed/",
             "composer dump-autoload",
+            "php scoper.fix-autoloader.php",
             "composer config vendor-dir ./vendor/"
         ]
     },
     "config": {
-        "vendor-dir": "./vendor/",
-        "autoloader-suffix": "2aaadb9787f9f5107bce3305e4c3b064"
+        "autoloader-suffix": "2aaadb9787f9f5107bce3305e4c3b064",
+        "vendor-dir": "./vendor/"
     }
 }
