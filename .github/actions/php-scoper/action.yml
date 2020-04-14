@@ -1,8 +1,0 @@
-name: 'composer-php-scoper'
-description: 'Runs composer'
-runs:
-  using: 'docker'
-  image: 'Dockerfile'
-branding:
-    icon: 'download'
-    color: 'orange'

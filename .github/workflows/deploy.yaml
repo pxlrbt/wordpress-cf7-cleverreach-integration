@@ -11,11 +11,8 @@ jobs:
     - name: Git checkout
       uses: actions/checkout@master
 
-    # - name: Composer install
-    #   uses: php-actions/composer@v1
-
-    - name: Composer install with PHP-Scoper
-      uses: ./.github/actions/php-scoper
+    - name: composer-php-scoper
+      uses: pxlrbt/action-composer-php-scoper@1.0
 
     - name: WordPress Plugin Deploy
       uses: 10up/action-wordpress-plugin-deploy@master
