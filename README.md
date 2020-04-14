@@ -65,6 +65,12 @@ If you find a bug please open an issue on github.
 
 ## Changelog
 
+### 2.3.2
+* Fix: Patch autoloader files to prevent collision
+
+### 2.3.1
+* Fix: A function still relied on the old http client
+
 ### 2.3
 * Refactor: Use guzzle as http client
 * Refactor: Use monolog as logger
