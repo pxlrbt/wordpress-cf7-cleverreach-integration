@@ -11,7 +11,7 @@
 
     "require": {
         "guzzlehttp/guzzle": "~6.0",
-        "monolog/monolog": "^2.0"
+        "monolog/monolog": "^1.25"
     },
 
     "autoload": {
@@ -32,7 +32,8 @@
             "composer dump-autoload",
             "php scoper.fix-autoloader.php",
             "composer config vendor-dir ./vendor/"
-        ]
+        ],
+        "minphp": "./phpcompatinfo.phar analyser:run ."
     },
     "config": {
         "autoloader-suffix": "2aaadb9787f9f5107bce3305e4c3b064",
