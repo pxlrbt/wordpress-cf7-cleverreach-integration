@@ -2,7 +2,7 @@
 
 Contributors: pixelarbeit
 Tags: contact form 7, cf7, cleverreach, contact form 7 addon, contact form 7 integration
-Tested up to: 5.4
+Tested up to: 5.5
 Requires at least: 4.6
 Requires PHP: 5.5
 Stable tag: 2.3.3
@@ -64,6 +64,9 @@ If you find a bug please open an issue on github.
 
 
 ## Changelog
+
+### 2.3.4
+* Feat: Add not regarding access tokens on settings page
 
 ### 2.3.3
 * Fix: Downgrade monolog for compatibility with PHP 5.5
