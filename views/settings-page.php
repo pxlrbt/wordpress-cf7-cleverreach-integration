@@ -31,6 +31,10 @@
         </tbody>
     </table>
 
+    <p>
+        <strong>Important!</strong> CleverReach reduced the expiry time to 1 month. At the moment the token must be renewed manually every month. Automatic renewal is on the todo list.
+    </p>
+
     <a class="button button-primary"
         href="<?php echo CleverreachApi::generateAuthLink(Plugin::$clientId, $redirectUrl); ?>">Get CleverReach API Token</a>
 </div>
