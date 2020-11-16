@@ -32,7 +32,8 @@
             "php scoper.fix-autoloader.php",
             "composer config vendor-dir ./vendor/"
         ],
-        "minphp": "./phpcompatinfo.phar analyser:run ."
+        "minphp": "./phpcompatinfo.phar analyser:run .",
+        "zip": "yarn prod && zip -r -q -x@.zipignore wp-voucher.zip ./"
     },
     "config": {
         "autoloader-suffix": "3aaadb9787f9f5107bce3305e4c3b064",
