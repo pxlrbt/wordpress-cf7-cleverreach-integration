@@ -2,16 +2,9 @@
 
 namespace pxlrbt\Cf7Cleverreach\Config;
 
-
-
 class Config
 {
     public $formId = null;
-
-
-
-    public function __construct() {}
-
 
     public static function getOptions($formId)
     {
@@ -19,14 +12,10 @@ class Config
         return is_array($data) ? $data : [];
     }
 
-
-
     public static function saveOptions($formId, $options)
     {
         return update_post_meta($formId, '_wpcf7-cleverreach_options', $options);
     }
-
-
 
     public static function getAttributeMapping($formId)
     {
@@ -34,14 +23,10 @@ class Config
         return is_array($data) ? $data : [];
     }
 
-
-
     public static function saveAttributeMapping($formId, $mapping)
     {
         return update_post_meta($formId, '_wpcf7-cleverreach_attribute_mapping', $mapping);
     }
-
-
 
     public static function getGlobalAttributeMapping($formId)
     {
@@ -49,13 +34,10 @@ class Config
         return is_array($data) ? $data : [];
     }
 
-
-
     public static function saveGlobalAttributeMapping($formId, $mapping)
     {
         return update_post_meta($formId, '_wpcf7-cleverreach_global_attribute_mapping', $mapping);
     }
-
 
     public static function deleteConfig($formId)
     {

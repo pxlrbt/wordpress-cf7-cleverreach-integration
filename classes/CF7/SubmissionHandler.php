@@ -7,21 +7,17 @@ use WPCF7_Submission;
 
 use pxlrbt\Cleverreach\Api as CleverreachApi;
 use pxlrbt\Cf7Cleverreach\Config\Config;
-use pxlrbt\Cf7Cleverreach\Plugin;
-
-
+use pxlrbt\Cf7Cleverreach\Container;
 
 class SubmissionHandler
 {
 	public function __construct(CleverreachApi $api)
 	{
         $this->api = $api;
-        $this->plugin = Plugin::getInstance();
-        $this->notifier = $this->plugin->notifier;
-        $this->logger = $this->plugin->logger;
+        $this->container = Container::getInstance();
+        $this->notifier = $this->container->getNotifier();
+        $this->logger = $this->container->getLogger();
 	}
-
-
 
     public function handleForm(WPCF7_ContactForm $form)
     {
@@ -103,8 +99,6 @@ class SubmissionHandler
         }
     }
 
-
-
     private function getCF7FormData()
     {
         $submission = WPCF7_Submission::get_instance();
@@ -115,8 +109,6 @@ class SubmissionHandler
 
         return $submission->get_posted_data();
     }
-
-
 
     private function getAttributes()
     {
@@ -135,8 +127,6 @@ class SubmissionHandler
 
         return $mapped;
     }
-
-
 
     private function getGlobalAttributes()
     {
