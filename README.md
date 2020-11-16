@@ -33,7 +33,7 @@ Connects your Contact Form 7 forms with your CleverReach account.
 
 ### Support
 
-If you find a bug please open an issue on github.
+If you find a bug please open an issue on github. For additional feature request or paid support contact me via [email](mailto:info@pixelarbeit.de)
 
 ### Links
 - [Github Repository](https://github.com/pxlrbt/wordpress-contact-form-7-cleverreach)
