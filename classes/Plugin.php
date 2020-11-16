@@ -2,16 +2,15 @@
 
 namespace pxlrbt\Cf7Cleverreach;
 
-use pxlrbt\Cf7Cleverreach\Config\Config;
 use pxlrbt\Cf7Cleverreach\Controllers\FormConfigController;
 use pxlrbt\Cf7Cleverreach\Controllers\SettingsPageController;
-use pxlrbt\Cf7Cleverreach\Cf7\SubmissionHandler;
+use pxlrbt\Cf7Cleverreach\ContactForm7\FormConfig;
+use pxlrbt\Cf7Cleverreach\ContactForm7\SubmissionHandler;
+use pxlrbt\Cf7Cleverreach\Cleverreach\ApiCredentials;
 use pxlrbt\Cf7Cleverreach\Vendor\Monolog\Handler\StreamHandler;
 use pxlrbt\Cf7Cleverreach\Vendor\Monolog\Logger;
+use pxlrbt\Cf7Cleverreach\Vendor\pxlrbt\WordpressNotifier\Notification;
 use pxlrbt\Cleverreach\Api as CleverreachApi;
-use pxlrbt\Wordpress\Notifier\Notifier;
-
-
 
 class Plugin
 {
@@ -19,9 +18,6 @@ class Plugin
     public static $prefix = 'wpcf7-cleverreach_';
     public static $version = '2.3.4';
     public static $title = 'CleverReach Integration for Contact Form 7';
-
-    public static $clientId = 'dDHV6YpJm3';
-    public static $clientSecret = 'ysqrbL2NNKTwGWphfWMRkZu1VA0kjnoS';
 
     /**
      * Initializes the plugin
@@ -54,7 +50,7 @@ class Plugin
      */
     public function onCf7MailSent($form)
     {
-        $options = Config::getOptions($form->id());
+        $options = FormConfig::getOptions($form->id());
 
         if (isset($options['active']) == false || $options['active'] == false) {
             return;
@@ -79,7 +75,24 @@ class Plugin
             update_option(self::$prefix . 'api-token', $token);
             delete_option('cf7-cleverreach_token');
 
-            $this->logger->info('Updated to version 1.1');
+            $this->container->getLogger()->info('Updated to version 1.1');
+        }
+
+        if (version_compare($this->getVersion(), '2.4.0', '<')) {
+            if (ApiCredentials::refreshToken() === null) {
+                $this->container->getNotifier()->dispatch(
+                    Notification::create(
+                        sprintf('Cannot automatically refresh API token as refresh token is empty. Please go to <a href="%s">CF7 to CleverReach settings</a> and manually refresh the API token.',
+                            esc_url(admin_url('admin.php?page=cf7-cleverreach'))
+                        )
+                    )
+                        ->title('CF7 to CleverReach: ')
+                        ->id('refresh-token')
+                        ->type('warning')
+                        ->dismissible(true)
+                        ->persistent(true)
+                );
+            }
         }
 
         $this->setVersion(self::$version);
@@ -116,7 +129,7 @@ class Plugin
     public function deleteConfig($postId)
     {
         if (get_post_type($postId) == \WPCF7_ContactForm::post_type) {
-            Config::deleteConfig($postId);
+            FormConfig::deleteConfig($postId);
         }
     }
 
@@ -130,7 +143,7 @@ class Plugin
     {
         $forms = \WPCF7_ContactForm::find();
         foreach ($forms as $form) {
-            Config::deleteConfig($form->id());
+            FormConfig::deleteConfig($form->id());
         }
     }
 }

@@ -1,8 +1,8 @@
 <?php
 
-namespace pxlrbt\Cf7Cleverreach\Config;
+namespace pxlrbt\Cf7Cleverreach\ContactForm7;
 
-class Config
+class FormConfig
 {
     public $formId = null;
 

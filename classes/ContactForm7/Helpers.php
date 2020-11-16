@@ -1,6 +1,6 @@
 <?php
 
-namespace pxlrbt\Cf7Cleverreach\CF7;
+namespace pxlrbt\Cf7Cleverreach\ContactForm7;
 
 use WPCF7_ContactForm;
 

@@ -52,26 +52,26 @@ class SettingsPageController
 
         try {
             $result = $api->getApiToken(
-                Plugin::$clientId,
-                Plugin::$clientSecret,
+                ApiCredentials::$clientId,
+                ApiCredentials::$clientSecret,
                 $code,
                 $redirectUrl
             );
         } catch (Exception $e) {
             $this->logger->error($e->getMessage(), [$e]);
-            $this->notifier->printNotification('error', $e->getMessage());
+            $this->notifier->error($e->getMessage());
             return;
         }
 
         if (isset($result->error_description)) {
             $this->logger->error($e->error_description, [$result]);
-            $this->notifier->printNotification('error', 'Could not retrieve api token: ' . $result->error_description);
+            $this->notifier->error('Could not retrieve api token: ' . $result->error_description);
             return;
         }
 
         if (isset($result->access_token)) {
             ApiCredentials::updateFromResult($result);
-            $this->notifier->printNotification('success', 'Api token updated');
+            $this->notifier->success('Api token updated');
         }
     }
 }

@@ -11,14 +11,13 @@
 
     "require": {
         "guzzlehttp/guzzle": "~6.0",
-        "monolog/monolog": "^1.25"
+        "monolog/monolog": "^1.25",
+        "pxlrbt/wordpress-notifier": "1.2.0"
     },
 
     "autoload": {
         "psr-4": {
-            "pxlrbt\\Cf7Cleverreach\\": "./classes",
-            "pxlrbt\\Cleverreach\\": "./lib/Cleverreach",
-            "pxlrbt\\Wordpress\\": "./lib/Wordpress"
+            "pxlrbt\\Cf7Cleverreach\\": "./classes"
         }
     },
 

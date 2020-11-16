@@ -1,13 +1,13 @@
 <?php
     use pxlrbt\Cf7Cleverreach\Controllers\FormConfigController;
-    use pxlrbt\Cf7Cleverreach\Config\Config;
-    use pxlrbt\Cf7Cleverreach\CF7\Helpers as Cf7;
+    use pxlrbt\Cf7Cleverreach\ContactForm7\FormConfig;
+    use pxlrbt\Cf7Cleverreach\ContactForm7\Helpers as Cf7;
     use pxlrbt\Cf7Cleverreach\Container;
 
     $currentFormId = Cf7::currentFormId();
-    $options = Config::getOptions($currentFormId);
-    $attributeMapping = Config::getAttributeMapping($currentFormId);
-    $globalAttributeMapping = Config::getGlobalAttributeMapping($currentFormId);
+    $options = FormConfig::getOptions($currentFormId);
+    $attributeMapping = FormConfig::getAttributeMapping($currentFormId);
+    $globalAttributeMapping = FormConfig::getGlobalAttributeMapping($currentFormId);
 
     $api = Container::getInstance()->getApi();
 

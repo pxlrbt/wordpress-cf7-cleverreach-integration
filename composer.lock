@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "5af5dbff1524d703b7d9c1fac37d079b",
+    "content-hash": "a04f244e47cae2437bbc8e24503e6623",
     "packages": [
         {
             "name": "guzzlehttp/guzzle",
@@ -371,6 +371,50 @@
             "time": "2020-03-23T09:12:05+00:00"
         },
         {
+            "name": "pxlrbt/wordpress-notifier",
+            "version": "1.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/pxlrbt/wordpress-notifier.git",
+                "reference": "239850e2608e3992846bea762ab2ddc38d23ac14"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/pxlrbt/wordpress-notifier/zipball/239850e2608e3992846bea762ab2ddc38d23ac14",
+                "reference": "239850e2608e3992846bea762ab2ddc38d23ac14",
+                "shasum": ""
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "pxlrbt\\WordpressNotifier\\": "./src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-3.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Dennis Koch",
+                    "email": "info@pixelarbeit.de"
+                }
+            ],
+            "description": "WordPress package for use in plugins or themes to handle WordPress admin notices.",
+            "keywords": [
+                "admin notices",
+                "library",
+                "notices",
+                "wordpress",
+                "wp"
+            ],
+            "support": {
+                "issues": "https://github.com/pxlrbt/wordpress-notifier/issues",
+                "source": "https://github.com/pxlrbt/wordpress-notifier/tree/1.2.0"
+            },
+            "time": "2020-11-16T15:51:18+00:00"
+        },
+        {
             "name": "ralouphie/getallheaders",
             "version": "3.0.3",
             "source": {
@@ -419,5 +463,5 @@
     "prefer-lowest": false,
     "platform": [],
     "platform-dev": [],
-    "plugin-api-version": "1.1.0"
+    "plugin-api-version": "2.0.0"
 }

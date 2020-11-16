@@ -26,15 +26,27 @@ class UpdateCleverreachTokenService
         $this->logger->info('Refreshing API token.');
 
         if (ApiCredentials::refreshToken() === null) {
-            $this->notifier->warning('Cannot refresh API token as refresh token is empty. Please go to CF7 to CleverReach settings and manually refresh the API token.');
+            $this->container->getNotifier()->dispatch(
+                Notification::create(
+                    sprintf('Cannot automatically refresh API token as refresh token is empty. Please go to <a href="%s">CF7 to CleverReach settings</a> and manually refresh the API token.',
+                        esc_url(admin_url('admin.php?page=cf7-cleverreach'))
+                    )
+                )
+                    ->title('CF7 to CleverReach: ')
+                    ->id('refresh-token')
+                    ->type('warning')
+                    ->dismissible(true)
+                    ->persistent(true)
+            );
+
             $this->logger->warning('Refresh token is empty.');
             return;
         }
 
         try {
             $result = $this->api->refreshApiToken(
-                Plugin::$clientId,
-                Plugin::$clientSecret,
+                ApiCredentials::$clientId,
+                ApiCredentials::$clientSecret,
                 ApiCredentials::refreshToken()
             );
         } catch (Exception $e) {

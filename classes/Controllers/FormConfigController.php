@@ -2,8 +2,8 @@
 
 namespace pxlrbt\Cf7Cleverreach\Controllers;
 
-use pxlrbt\Cf7Cleverreach\Config\Config;
-use pxlrbt\Cf7Cleverreach\CF7\Helpers;
+use pxlrbt\Cf7Cleverreach\ContactForm7\FormConfig;
+use pxlrbt\Cf7Cleverreach\ContactForm7\Helpers;
 use pxlrbt\Cf7Cleverreach\Container;
 
 class FormConfigController
@@ -59,7 +59,7 @@ class FormConfigController
             $options[$optionName] = $optionValue;
         }
 
-        Config::saveOptions(Helpers::currentFormId(), $options);
+        FormConfig::saveOptions(Helpers::currentFormId(), $options);
     }
 
     private function saveAttributeMapping()
@@ -83,13 +83,13 @@ class FormConfigController
             }
         }
 
-        Config::saveAttributeMapping(Helpers::currentFormId(), $localMapping);
-        Config::saveGlobalAttributeMapping(Helpers::currentFormId(), $globalMapping);
+        FormConfig::saveAttributeMapping(Helpers::currentFormId(), $localMapping);
+        FormConfig::saveGlobalAttributeMapping(Helpers::currentFormId(), $globalMapping);
     }
 
     public function printEditorPanel($form)
     {
-        $this->options = Config::getOptions(Helpers::currentFormId());
+        $this->options = FormConfig::getOptions(Helpers::currentFormId());
         include __DIR__ . '/../../views/cf7-cleverreach-panel.php';
     }
 }

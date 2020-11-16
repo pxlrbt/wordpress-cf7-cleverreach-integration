@@ -4,13 +4,16 @@ namespace pxlrbt\Cf7Cleverreach;
 
 use pxlrbt\Cf7Cleverreach\Vendor\Monolog\Handler\StreamHandler;
 use pxlrbt\Cf7Cleverreach\Vendor\Monolog\Logger;
+use pxlrbt\Cf7Cleverreach\Vendor\pxlrbt\WordpressNotifier\Notifier;
 use pxlrbt\Cf7Cleverreach\Cleverreach\ApiCredentials;
-use pxlrbt\Cleverreach\Api as CleverreachApi;
-use pxlrbt\Wordpress\Notifier\Notifier;
+use pxlrbt\Cf7Cleverreach\Cleverreach\Api as CleverreachApi;
 
 class Container
 {
     private static $instance;
+    private $logger;
+    private $notifier;
+    private $api;
 
     public function __construct($plugin)
     {
@@ -26,17 +29,19 @@ class Container
     public function getNotifier()
     {
         if ($this->notifier === null) {
-            $this->notifier = new Notifier(Plugin::$prefix, 'CF7 to CleverReach');
+            $this->notifier = new Notifier(Plugin::$prefix);
         }
 
-        return $this->notifier;return $this->notifier;
+        return $this->notifier;
     }
 
     public function getLogger()
     {
         if ($this->logger === null) {
             $this->logger = new Logger('cf7-cleverreach');
-            $this->logger->pushHandler(new StreamHandler(WP_CONTENT_DIR . '/cf7-cleverreach.log'));
+            $this->logger->pushHandler(
+                new StreamHandler(WP_CONTENT_DIR . '/' . md5(NONCE_KEY) . '-cf7-cleverreach.log')
+            );
         }
 
         return $this->logger;

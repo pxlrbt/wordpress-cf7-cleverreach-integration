@@ -1,13 +1,14 @@
 <?php
 
-namespace pxlrbt\Cf7Cleverreach\CF7;
+namespace pxlrbt\Cf7Cleverreach\ContactForm7;
 
 use WPCF7_ContactForm;
 use WPCF7_Submission;
 
-use pxlrbt\Cleverreach\Api as CleverreachApi;
-use pxlrbt\Cf7Cleverreach\Config\Config;
+use pxlrbt\Cf7Cleverreach\Cleverreach\Api as CleverreachApi;
+use pxlrbt\Cf7Cleverreach\ContactForm7\FormConfig;
 use pxlrbt\Cf7Cleverreach\Container;
+use pxlrbt\Cf7Cleverreach\Vendor\pxlrbt\WordpressNotifier\Notification;
 
 class SubmissionHandler
 {
@@ -22,13 +23,8 @@ class SubmissionHandler
     public function handleForm(WPCF7_ContactForm $form)
     {
         $this->form = $form;
-        $options = Config::getOptions($form->id());
-
-        if (empty($options['listId']) || empty($options['formId']) || empty($options['emailField'])) {
-            $this->notifier->error('Missing form configuration. Required: List ID, form ID, email field.');
-            $this->logger->error('Did not process data: Missing configuration (list ID, form ID, email field) on CF7 form ' . $form->id());
-            return;
-        }
+        $formData = $this->getCF7FormData();
+        $options = FormConfig::getOptions($form->id());
 
         if (!empty($options['requireField']) && empty($_POST[$options['requireField']])) {
             $this->logger->debug('Did not process data: Required field not set.', [
@@ -38,11 +34,37 @@ class SubmissionHandler
             return;
         }
 
-        $formData = $this->getCF7FormData();
+        if (empty($options['listId']) || empty($options['formId']) || empty($options['emailField'])) {
+            $this->notifier->dispatch(
+                Notification::create(
+                    sprintf(
+                        'Form config for form "<a href="%s">%s</a>" is incomplete.',
+                        esc_url(admin_url('admin.php?page=wpcf7&post=' . $form->id())),
+                        $form->title()
+                    )
+                )
+                    ->title('CF7 to CleverReach: ')
+                    ->id('error.incomplete-config.' . $form->id())
+                    ->type('error')
+                    ->dismissible(true)
+                    ->persistent(true)
+            );
+
+            $this->logger->error(
+                'Did not process data: Missing configuration (list ID, form ID, email field).',
+                [
+                    'formId' => $form->id(),
+                    'formData' => $formData,
+                    'options' => $options
+                ]
+            );
+            return;
+        }
+
         $email = $formData[$options['emailField']];
 
         if (empty($email)) {
-            $this->logger->warn('Did not process data: No email found.', [
+            $this->logger->error('Did not process data: No email found.', [
                 'formId' => $form->id(),
                 'formData' => $formData,
                 'options' => $options
@@ -82,7 +104,17 @@ class SubmissionHandler
                 );
             }
         } catch (\Exception $e) {
-            $this->notifier->error('Error while transferring data from Contact Form 7 to CleverReach. Details in log.');
+            $this->notifier->dispatch(
+                Notification::create(
+                    'Error while transferring data from Contact Form 7 to CleverReach. Check log file for details.'
+                )
+                    ->title('CF7 to CleverReach: ')
+                    ->id('error.transfer')
+                    ->type('warning')
+                    ->dismissible(true)
+                    ->persistent(true)
+            );
+
             $this->logger->error('Failed adding/updating user.', [
                 'message' => $e->getMessage(),
                 'data' => [
@@ -115,7 +147,7 @@ class SubmissionHandler
         $mapped = [];
 
         $formData = $this->getCF7FormData();
-        $mapping = Config::getAttributeMapping($this->form->id());
+        $mapping = FormConfig::getAttributeMapping($this->form->id());
 
         foreach ($formData as $cf7Name => $cf7Value) {
             if (array_key_exists($cf7Name, $mapping)) {
@@ -133,7 +165,7 @@ class SubmissionHandler
         $mapped = [];
 
         $formData = $this->getCF7FormData();
-        $mapping = Config::getGlobalAttributeMapping($this->form->id());
+        $mapping = FormConfig::getGlobalAttributeMapping($this->form->id());
 
         foreach ($formData as $cf7Name => $cf7Value) {
             if (array_key_exists($cf7Name, $mapping)) {

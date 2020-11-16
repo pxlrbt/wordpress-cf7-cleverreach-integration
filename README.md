@@ -65,6 +65,10 @@ If you find a bug please open an issue on github.
 
 ## Changelog
 
+### 2.4.0
+* Feat: Automatic token renewal
+* Feat: Improved Notifications/Logging
+
 ### 2.3.4
 * Feat: Add not regarding access tokens on settings page
 
