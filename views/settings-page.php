@@ -1,6 +1,6 @@
 <?php
     use pxlrbt\Cf7Cleverreach\Plugin;
-    use pxlrbt\Cf7Cleverreach\CF7\ApiCredentials;
+    use pxlrbt\Cf7Cleverreach\Cleverreach\ApiCredentials;
     use pxlrbt\Cleverreach\Api as CleverreachApi;
 ?>
 <div class="wrap">

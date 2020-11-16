@@ -1,13 +1,15 @@
 <?php
     use pxlrbt\Cf7Cleverreach\Controllers\FormConfigController;
     use pxlrbt\Cf7Cleverreach\Config\Config;
+    use pxlrbt\Cf7Cleverreach\CF7\Helpers as Cf7;
+    use pxlrbt\Cf7Cleverreach\Container;
 
-    $fcc = FormConfigController::getInstance();
-    $options = Config::getOptions($fcc->getCurrentFormId());
-    $attributeMapping = Config::getAttributeMapping($fcc->getCurrentFormId());
-    $globalAttributeMapping = Config::getGlobalAttributeMapping($fcc->getCurrentFormId());
+    $currentFormId = Cf7::currentFormId();
+    $options = Config::getOptions($currentFormId);
+    $attributeMapping = Config::getAttributeMapping($currentFormId);
+    $globalAttributeMapping = Config::getGlobalAttributeMapping($currentFormId);
 
-    $api = $this->plugin->getApi();
+    $api = Container::getInstance()->getApi();
 
     try {
         $groups = $api->getGroups();
@@ -19,8 +21,6 @@
         }
     } catch (\Exception $e) {
     }
-
-
 ?>
 
 <div class="cleverreach-config">
@@ -79,7 +79,7 @@
                 <td>
                     <select name="wpcf7-cleverreach_options[emailField]">
                         <option></option>
-                        <?php foreach ($fcc->getCF7FieldNames() as $field): ?>
+                        <?php foreach (Cf7::fieldNames() as $field): ?>
                             <option value="<?php echo $field; ?>" <?php if (isset($options['emailField']) && $options['emailField'] == $field): ?>selected<?php endif; ?>>
                                 <?php echo $field; ?>
                             </option>
@@ -97,7 +97,7 @@
                 <td>
                     <select name="wpcf7-cleverreach_options[requireField]">
                         <option></option>
-                        <?php foreach ($fcc->getCF7FieldNames() as $field): ?>
+                        <?php foreach (Cf7::fieldNames() as $field): ?>
                             <option value="<?php echo $field; ?>" <?php if (isset($options['requireField']) && $options['requireField'] == $field): ?>selected<?php endif; ?>>
                                 <?php echo $field; ?>
                             </option>
@@ -158,7 +158,7 @@
                 </tr>
             </thead>
             <tbody>
-                <?php foreach ($fcc->getCF7FieldNames() as $field): ?>
+                <?php foreach (Cf7::fieldNames() as $field): ?>
                     <tr>
                         <th><?php echo $field; ?></th>
                         <td>

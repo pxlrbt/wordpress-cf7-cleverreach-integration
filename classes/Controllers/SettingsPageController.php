@@ -3,43 +3,22 @@
 namespace pxlrbt\Cf7Cleverreach\Controllers;
 
 use pxlrbt\Cleverreach\Api as CleverreachApi;
+use pxlrbt\Cf7Cleverreach\Container;
 use pxlrbt\Cf7Cleverreach\Plugin;
-use pxlrbt\Cf7Cleverreach\CF7\ApiCredentials;
+use pxlrbt\Cf7Cleverreach\Cleverreach\ApiCredentials;
 use WPCF7_ContactForm;
 use Exception;
 
-
-
 class SettingsPageController
 {
-    public static $instance;
-
-
-
-    private function __construct() {}
-
-
-
-    public static function getInstance()
-    {
-        if (self::$instance == null) {
-            self::$instance = new self();
-        }
-
-        return self::$instance;
-    }
-
-
-
-	public function init($plugin)
+	public function __construct(Container $container)
 	{
-        $this->plugin = $plugin;
-        $this->notifier = $plugin->notifier;
-        $this->logger = $plugin->logger;
+        $this->container = $container;
+        $this->notifier = $container->getNotifier();
+        $this->logger = $container->getLogger();
+
         add_action('admin_menu', [$this, 'registerMenu']);
     }
-
-
 
     public function registerMenu()
     {
@@ -52,8 +31,6 @@ class SettingsPageController
             [$this, 'printPage']
         );
     }
-
-
 
     public function printPage()
     {
@@ -68,16 +45,18 @@ class SettingsPageController
         include __DIR__ . '/../../views/settings-page.php';
     }
 
-
-
     public function getApiToken($code)
     {
-        $api = $this->plugin->getApi();
-
+        $api = $this->container->getApi();
         $redirectUrl = esc_url(admin_url('admin.php?page=cf7-cleverreach'));
 
         try {
-            $result = $api->getApiToken(Plugin::$clientId, Plugin::$clientSecret, $code, $redirectUrl);
+            $result = $api->getApiToken(
+                Plugin::$clientId,
+                Plugin::$clientSecret,
+                $code,
+                $redirectUrl
+            );
         } catch (Exception $e) {
             $this->logger->error($e->getMessage(), [$e]);
             $this->notifier->printNotification('error', $e->getMessage());
@@ -91,10 +70,7 @@ class SettingsPageController
         }
 
         if (isset($result->access_token)) {
-            ApiCredentials::upda
-            update_option('wpcf7-cleverreach_api-token', $result->access_token);
-            update_option('wpcf7-cleverreach_api-refresh-token', $result->refresh_token);
-            update_option('wpcf7-cleverreach_api-expires', time() + $result->expires_in);
+            ApiCredentials::updateFromResult($result);
             $this->notifier->printNotification('success', 'Api token updated');
         }
     }

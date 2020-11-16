@@ -12,5 +12,5 @@ require __DIR__ . '/vendor-prefixed/autoload.php';
 
 use pxlrbt\Cf7Cleverreach\Plugin;
 
-$plugin = Plugin::getInstance();
-$plugin->init();
+$plugin = new Plugin();
+$plugin->boot();

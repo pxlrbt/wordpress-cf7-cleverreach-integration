@@ -2,17 +2,16 @@
 
 namespace pxlrbt\Cf7Cleverreach;
 
-use pxlrbt\Cf7Cleverreach\CF7\ApiCredentials;
+use pxlrbt\Cf7Cleverreach\Cleverreach\ApiCredentials;
 use Exception;
 
 class UpdateCleverreachTokenService
 {
-    public function __construct(Plugin $plugin)
+    public function __construct(Container $container)
     {
-        $this->plugin = $plugin;
-        $this->logger = $plugin->logger;
-        $this->notifier = $plugin->notifier;
-        $this->api = $plugin->getApi();
+        $this->logger = $container->getLogger();
+        $this->notifier = $container->getNotifier();
+        $this->api = $container->getApi();
 
         add_action(Plugin::$prefix . 'update_token', [$this, 'refreshToken']);
 

@@ -5,7 +5,7 @@ namespace pxlrbt\Cf7Cleverreach;
 use pxlrbt\Cf7Cleverreach\Config\Config;
 use pxlrbt\Cf7Cleverreach\Controllers\FormConfigController;
 use pxlrbt\Cf7Cleverreach\Controllers\SettingsPageController;
-use pxlrbt\Cf7Cleverreach\CF7\SubmissionHandler;
+use pxlrbt\Cf7Cleverreach\Cf7\SubmissionHandler;
 use pxlrbt\Cf7Cleverreach\Vendor\Monolog\Handler\StreamHandler;
 use pxlrbt\Cf7Cleverreach\Vendor\Monolog\Logger;
 use pxlrbt\Cleverreach\Api as CleverreachApi;
@@ -23,55 +23,15 @@ class Plugin
     public static $clientId = 'dDHV6YpJm3';
     public static $clientSecret = 'ysqrbL2NNKTwGWphfWMRkZu1VA0kjnoS';
 
-    private static $instance;
-
-
-
-    /**
-     * Private constructor for singleton
-     *
-     * @author Dennis Koch <info@pixelarbeit.de>
-     * @since 1.0
-     */
-    private function __construct() {}
-
-
-
-    /**
-     * Get instance for singleton instance
-     *
-     * @author Dennis Koch <info@pixelarbeit.de>
-     * @since 1.1
-     */
-    public static function getInstance()
-    {
-        if (self::$instance == null) {
-            self::$instance = new self();
-        }
-
-        return self::$instance;
-    }
-
-
-
     /**
      * Initializes the plugin
      *
      * @author Dennis Koch <info@pixelarbeit.de>
      * @since 1.0
      */
-    public function init()
+    public function boot()
     {
-        $this->notifier = new Notifier(self::$prefix, 'CF7 to CleverReach');
-
-        $this->logger = new Logger('cf7-cleverreach');
-        $this->logger->pushHandler(new StreamHandler(WP_CONTENT_DIR . '/cf7-cleverreach.log'));
-
-        $forms = FormConfigController::getInstance();
-        $forms->init($this);
-
-        $settings = SettingsPageController::getInstance();
-        $settings->init($this);
+        $this->container = new Container($this);
 
         /* Backend hooks */
         register_uninstall_hook(__FILE__, [__CLASS__, 'uninstall']);
@@ -81,10 +41,10 @@ class Plugin
         /* Frontend hooks */
         add_action('wpcf7_mail_sent', [$this, 'onCF7MailSent']);
 
-        new UpdateCleverreachTokenService($this);
+        new FormConfigController($this->container);
+        new SettingsPageController($this->container);
+        new UpdateCleverreachTokenService($this->container);
     }
-
-
 
     /**
      * Handles CF7 form submits
@@ -100,14 +60,11 @@ class Plugin
             return;
         }
 
-        $api = $this->getApi();
+        $api = $this->container->getApi();
 
         $submissionHandler = new SubmissionHandler($api);
         $submissionHandler->handleForm($form);
-
     }
-
-
 
     /**
      * Update routine
@@ -128,21 +85,6 @@ class Plugin
         $this->setVersion(self::$version);
     }
 
-
-
-    /**
-     * Get saved cleverreach api token
-     *
-     * @author Dennis Koch <info@pixelarbeit.de>
-     * @since 1.1
-     */
-    public function getApiToken()
-    {
-        return get_option(self::$prefix . 'api-token');
-    }
-
-
-
     /**
      * Get saved plugin version
      *
@@ -154,8 +96,6 @@ class Plugin
         return get_option(self::$prefix . 'version', '1.0');
     }
 
-
-
     /**
      * Set saved plugin version
      *
@@ -166,8 +106,6 @@ class Plugin
     {
         return update_option(self::$prefix . 'version', $version);
     }
-
-
 
     /**
      * Delete config for given post id if it is cf7 form
@@ -181,29 +119,6 @@ class Plugin
             Config::deleteConfig($postId);
         }
     }
-
-
-
-    /**
-     * Get CleverReach API
-     *
-     * @return void
-     * @author Dennis Koch <info@pixelarbeit.de>
-     * @since 1.2
-     */
-    public function getApi()
-    {
-        $token = $this->getApiToken();
-
-        if (($token = $this->getApiToken()) == false) {
-            $this->notifier->warning('Incomplete configuration.');
-            return new CleverreachApi();
-        }
-
-        return new CleverreachApi($token);
-    }
-
-
 
     /**
      * Uninstall function. Deletes all config.
