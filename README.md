@@ -39,7 +39,6 @@ If you find a bug please open an issue on github. For additional feature request
 - [Github Repository](https://github.com/pxlrbt/wordpress-contact-form-7-cleverreach)
 - [WordPress Plugin Directory](https://wordpress.org/plugins/cf7-cleverreach-integration/)
 
-
 ## Configuration
 
 1. Go to Settings > CF7 to CleverReach
@@ -47,21 +46,15 @@ If you find a bug please open an issue on github. For additional feature request
 1. Authenticate against CleverReach and give access to the plugin. You will be redirected back to Wordpress and should see the generated API token.
 1. Configure your forms via Contact -> "Your form" > CleverReach tab
 
-
-
 ## Installation
 
 1. Upload the plugin files to the `/wp-content/plugins/cf7-cleverreach-integration` directory, or install the plugin through the WordPress plugins screen directly.
 1. Activate the plugin through the 'Plugins' screen in WordPress
 
-
-
 ## Screenshots
 
 1. Get CleverReach API Token via settings page
 2. Configure form
-
-
 
 ## Changelog
 
