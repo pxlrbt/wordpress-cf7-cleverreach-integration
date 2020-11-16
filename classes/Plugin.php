@@ -8,8 +8,8 @@ use pxlrbt\Cf7Cleverreach\Controllers\SettingsPageController;
 use pxlrbt\Cf7Cleverreach\CF7\SubmissionHandler;
 use pxlrbt\Cf7Cleverreach\Vendor\Monolog\Handler\StreamHandler;
 use pxlrbt\Cf7Cleverreach\Vendor\Monolog\Logger;
+use pxlrbt\Cf7Cleverreach\Vendor\pxlrbt\WordpressNotifier\Notifier;
 use pxlrbt\Cleverreach\Api as CleverreachApi;
-use pxlrbt\Wordpress\Notifier\Notifier;
 
 
 
@@ -62,7 +62,7 @@ class Plugin
      */
     public function init()
     {
-        $this->notifier = new Notifier(self::$prefix, 'CF7 to CleverReach');
+        $this->notifier = new Notifier(self::$prefix);
 
         $this->logger = new Logger('cf7-cleverreach');
         $this->logger->pushHandler(new StreamHandler(WP_CONTENT_DIR . '/cf7-cleverreach.log'));

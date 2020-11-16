@@ -9,16 +9,18 @@
         }
     ],
 
+    "minimum-stability": "dev",
+
     "require": {
         "guzzlehttp/guzzle": "~6.0",
-        "monolog/monolog": "^1.25"
+        "monolog/monolog": "^1.25",
+        "pxlrbt/wordpress-notifier": "dev-master"
     },
 
     "autoload": {
         "psr-4": {
             "pxlrbt\\Cf7Cleverreach\\": "./classes",
-            "pxlrbt\\Cleverreach\\": "./lib/Cleverreach",
-            "pxlrbt\\Wordpress\\": "./lib/Wordpress"
+            "pxlrbt\\Cleverreach\\": "./lib/Cleverreach"
         }
     },
 
@@ -36,7 +38,17 @@
         "minphp": "./phpcompatinfo.phar analyser:run ."
     },
     "config": {
-        "autoloader-suffix": "2aaadb9787f9f5107bce3305e4c3b064",
+        "autoloader-suffix": "3aaadb9787f9f5107bce3305e4c3b064",
         "vendor-dir": "./vendor/"
+    },
+    "require-dev": {
+        "pxlrbt/php-scoper-prefix-remover": "0.1.0",
+        "php-stubs/wordpress-stubs": "9999999-dev"
+    },
+    "repositories": {
+        "local": {
+            "type": "path",
+            "url": "/home/dkoch/code/pxlrbt/wordpress-notifier"
+        }
     }
 }

@@ -2,7 +2,15 @@
 
 declare(strict_types=1);
 
+require __DIR__ . '/vendor/autoload.php';
+
 use Isolated\Symfony\Component\Finder\Finder;
+use pxlrbt\PhpScoper\PrefixRemover\IdentifierExtractor;
+use pxlrbt\PhpScoper\PrefixRemover\RemovePrefixPatcher;
+
+$identifiers = (new IdentifierExtractor())
+                    ->addStub('vendor/php-stubs/wordpress-stubs/wordpress-stubs.php')
+                    ->extract();
 
 return [
     // The prefix configuration. If a non null value will be used, a random prefix will be generated.
@@ -42,11 +50,7 @@ return [
     //
     // For more see: https://github.com/humbug/php-scoper#patchers
     'patchers' => [
-        function (string $filePath, string $prefix, string $contents): string {
-            // Change the contents here.
-
-            return $contents;
-        },
+        // (new RemovePrefixPatcher($identifiers)),
     ],
 
     // PHP-Scoper's goal is to make sure that all code for a project lies in a distinct PHP namespace. However, you
