@@ -4,6 +4,7 @@ namespace pxlrbt\Cf7Cleverreach\Controllers;
 
 use pxlrbt\Cleverreach\Api as CleverreachApi;
 use pxlrbt\Cf7Cleverreach\Plugin;
+use pxlrbt\Cf7Cleverreach\CF7\ApiCredentials;
 use WPCF7_ContactForm;
 use Exception;
 
@@ -90,7 +91,9 @@ class SettingsPageController
         }
 
         if (isset($result->access_token)) {
+            ApiCredentials::upda
             update_option('wpcf7-cleverreach_api-token', $result->access_token);
+            update_option('wpcf7-cleverreach_api-refresh-token', $result->refresh_token);
             update_option('wpcf7-cleverreach_api-expires', time() + $result->expires_in);
             $this->notifier->printNotification('success', 'Api token updated');
         }

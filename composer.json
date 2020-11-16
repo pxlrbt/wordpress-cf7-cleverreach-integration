@@ -36,7 +36,7 @@
         "minphp": "./phpcompatinfo.phar analyser:run ."
     },
     "config": {
-        "autoloader-suffix": "2aaadb9787f9f5107bce3305e4c3b064",
+        "autoloader-suffix": "3aaadb9787f9f5107bce3305e4c3b064",
         "vendor-dir": "./vendor/"
     }
 }

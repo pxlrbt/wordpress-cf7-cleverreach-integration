@@ -80,6 +80,8 @@ class Plugin
 
         /* Frontend hooks */
         add_action('wpcf7_mail_sent', [$this, 'onCF7MailSent']);
+
+        new UpdateCleverreachTokenService($this);
     }
 
 

@@ -98,6 +98,29 @@ class Api
         return $json;
     }
 
+    public function refreshApiToken($clientId, $clientSecret, $refreshToken)
+    {
+        $data = [
+            'client_id' => $clientId,
+            'client_secret' => $clientSecret,
+            'grant_type' => 'refresh_token',
+            'refresh_token' => $refreshToken
+        ];
+
+        $response = $this->client->request('POST', self::$tokenUrl, [
+            'json' => $data
+        ]);
+
+        $content = $response->getBody()->getContents();
+        $json = json_decode($content);
+
+        if ($json === null) {
+            throw new Exception('Invalid JSON response.');
+        }
+
+        return $json;
+    }
+
 
 
     /* API FUNCTIONS */
