@@ -59,7 +59,7 @@ If you find a bug please open an issue on github. For additional feature request
 ## Changelog
 
 ### 2.4.1
-* Fix: Added note on toke expiry.
+* Fix: Added note on toke expiry
 
 ### 2.4.0
 * Feat: Automatic token renewal
