@@ -44,7 +44,10 @@
             <?php if (ApiCredentials::expires() != null): ?>
                 <tr>
                     <th><label for="wpcf7-cleverreach_api-expires">Expires:</label></th>
-                    <td><?php echo date('Y-m-d', ApiCredentials::expires()); ?></td>
+                    <td>
+                        <?php echo date('Y-m-d', ApiCredentials::expires()); ?>
+                        <small>(Every API token is only valid for a month, but should be renewed weekly)</small>
+                    </td>
                 </tr>
             <?php endif; ?>
         </tbody>
