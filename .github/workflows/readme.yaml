@@ -13,11 +13,12 @@ jobs:
     steps:
     - uses: actions/checkout@master
 
-    - name: composer-php-scoper
-      uses: pxlrbt/action-composer-php-scoper@1.1.0
+    # - name: composer-php-scoper
+    #   uses: pxlrbt/action-composer-php-scoper@1.1.0
 
     - name: WordPress.org plugin asset/readme update
-      uses: 10up/action-wordpress-plugin-asset-update@master
+      # uses: 10up/action-wordpress-plugin-asset-update@master
+      uses: pxlrbt/action-wordpress-plugin-asset-update@master
       env:
         SVN_PASSWORD: ${{ secrets.SVN_PASSWORD }}
         SVN_USERNAME: ${{ secrets.SVN_USERNAME }}
