@@ -15,7 +15,8 @@ jobs:
       uses: pxlrbt/action-composer-php-scoper@1.1.0
 
     - name: WordPress Plugin Deploy
-      uses: 10up/action-wordpress-plugin-deploy@master
+      # uses: 10up/action-wordpress-plugin-deploy@master
+      uses: pxlrbt/action-wordpress-plugin-asset-update@master
       env:
         SVN_PASSWORD: ${{ secrets.SVN_PASSWORD }}
         SVN_USERNAME: ${{ secrets.SVN_USERNAME }}
