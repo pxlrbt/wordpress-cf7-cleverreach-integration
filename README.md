@@ -57,7 +57,6 @@ If you find a bug please open an issue on github. For additional feature request
 2. Configure form
 
 ## Changelog
-
 ### 2.4.1
 * Fix: Added note on toke expiry
 
