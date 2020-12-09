@@ -2,38 +2,36 @@
 
 Contributors: pixelarbeit
 Tags: contact form 7, cf7, cleverreach, contact form 7 addon, contact form 7 integration
-Tested up to: 5.5
+Tested up to: 5.6
 Requires at least: 4.6
 Requires PHP: 5.5
 Stable tag: 2.4.1
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
-Add new recipients to CleverReach from your Contact Form 7 forms.
-
+Connect your Contact Form 7 forms with your CleverReach account.
 ## Description
 
-Connects your Contact Form 7 forms with your CleverReach account.
+Add or update new recipients to CleverReach when your Contact Form 7 form is submitted.
 
 ### Features
 
-* Add/update CleverReach recipients when a form is submitted including custom CleverReach fields
-* Easy mapping between CF7 fields and CleverReach fields
-* Easy connection to CleverReach (Only credentials are needed)
+* Quick setup with CleverReach
+* Map Contact Form 7 fields to CleverReach fields with ease
 * Invidual settings per form (e.g. group, form, mapping, ...)
 * Choose between Single Opt-In and Double Opt-In
-* Choose a "required field" for CleverReach submission
+* Mark a field as "required" for CleverReach submission
 
 ### Requires
 
 * PHP >= 5.5
 * PHP cURL Extension
-* Contact Form 7 >= 4.5
+* Contact Form 7 Plugin >= 4.5
 * CleverReach Account
 
 ### Support
 
-If you find a bug please open an issue on github. For additional feature request or paid support contact me via [email](mailto:info@pixelarbeit.de)
+If you find a bug please open an issue on [GitHub](https://github.com/pxlrbt/wordpress-contact-form-7-cleverreach/issues). For additional feature request or _paid support_ contact me via [email](mailto:info@pixelarbeit.de)
 
 ### Links
 - [Github Repository](https://github.com/pxlrbt/wordpress-contact-form-7-cleverreach)
@@ -58,7 +56,7 @@ If you find a bug please open an issue on github. For additional feature request
 
 ## Changelog
 ### 2.4.1
-* Fix: Added note on toke expiry
+* Fix: Added note on token expiry
 
 ### 2.4.0
 * Feat: Automatic token renewal
