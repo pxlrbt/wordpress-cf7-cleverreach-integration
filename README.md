@@ -5,7 +5,7 @@ Tags: contact form 7, cf7, cleverreach, contact form 7 addon, contact form 7 int
 Tested up to: 5.6
 Requires at least: 4.6
 Requires PHP: 5.5
-Stable tag: 2.4.1
+Stable tag: 2.4.2
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -34,7 +34,7 @@ Add or update new recipients to CleverReach when your Contact Form 7 form is sub
 If you find a bug please open an issue on [GitHub](https://github.com/pxlrbt/wordpress-contact-form-7-cleverreach/issues). For additional feature request or _paid support_ contact me via [email](mailto:info@pixelarbeit.de)
 
 ### Links
-- [Github Repository](https://github.com/pxlrbt/wordpress-contact-form-7-cleverreach)
+- [GitHub Repository](https://github.com/pxlrbt/wordpress-contact-form-7-cleverreach)
 - [WordPress Plugin Directory](https://wordpress.org/plugins/cf7-cleverreach-integration/)
 
 ## Configuration
@@ -55,6 +55,8 @@ If you find a bug please open an issue on [GitHub](https://github.com/pxlrbt/wor
 2. Configure form
 
 ## Changelog
+### 2.4.2
+* Fix: Send Double-Opt-In Mail for existing users if they are not activated yet.
 ### 2.4.1
 * Fix: Added note on token expiry
 

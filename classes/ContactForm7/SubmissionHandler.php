@@ -91,9 +91,6 @@ class SubmissionHandler
                     $globalAttributes
                 );
 
-                if (isset($options['doubleOptIn']) == false || $options['doubleOptIn'] == true) {
-                    $mail = $this->api->sendActivationMail($options['formId'], $email);
-                }
             } else {
                 $result = $this->api->updateContact(
                     $options['listId'],
@@ -102,6 +99,13 @@ class SubmissionHandler
                     $attributes,
                     $globalAttributes
                 );
+            }
+
+            $sendActivationMail = $contact == null || $contact->activated == false;
+            $doubleOptInActive = isset($options['doubleOptIn']) == false || $options['doubleOptIn'] == true;
+
+            if ($doubleOptInActive && $sendActivationMail) {
+                $this->api->sendActivationMail($options['formId'], $email);
             }
         } catch (\Exception $e) {
             $this->notifier->dispatch(

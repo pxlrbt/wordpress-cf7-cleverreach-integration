@@ -7,16 +7,13 @@ use pxlrbt\Cf7Cleverreach\Controllers\SettingsPageController;
 use pxlrbt\Cf7Cleverreach\ContactForm7\FormConfig;
 use pxlrbt\Cf7Cleverreach\ContactForm7\SubmissionHandler;
 use pxlrbt\Cf7Cleverreach\Cleverreach\ApiCredentials;
-use pxlrbt\Cf7Cleverreach\Vendor\Monolog\Handler\StreamHandler;
-use pxlrbt\Cf7Cleverreach\Vendor\Monolog\Logger;
 use pxlrbt\Cf7Cleverreach\Vendor\pxlrbt\WordpressNotifier\Notification;
-use pxlrbt\Cleverreach\Api as CleverreachApi;
 
 class Plugin
 {
     public static $name = 'cf7-cleverreach-integration';
     public static $prefix = 'wpcf7-cleverreach_';
-    public static $version = '2.4.1';
+    public static $version = '2.4.2';
     public static $title = 'CleverReach Integration for Contact Form 7';
 
     /**
