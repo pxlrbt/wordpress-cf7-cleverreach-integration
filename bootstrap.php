@@ -2,7 +2,7 @@
 /*
 Plugin Name: CleverReach Integration for Contact Form 7
 Description: Send Contact Form 7 form data to CleverReach
-Version:     2.4.2
+Version:     2.4.3
 Author:      pixelarbeit
 Author URI:  https://pixelarbeit.de
 */

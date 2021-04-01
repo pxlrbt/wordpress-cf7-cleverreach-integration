@@ -55,6 +55,9 @@ If you find a bug please open an issue on [GitHub](https://github.com/pxlrbt/wor
 2. Configure form
 
 ## Changelog
+### 2.4.3
+* Fix: Do not show refresh token warning on first install or when API token is empty
+
 ### 2.4.2
 * Fix: Send Double-Opt-In Mail for existing users if they are not activated yet.
 ### 2.4.1
