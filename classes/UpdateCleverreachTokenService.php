@@ -25,6 +25,10 @@ class UpdateCleverreachTokenService
     {
         $this->logger->info('Refreshing API token.');
 
+        if (ApiCredentials::token() === null) {
+            return;
+        }
+
         if (ApiCredentials::refreshToken() === null) {
             $this->container->getNotifier()->dispatch(
                 Notification::create(

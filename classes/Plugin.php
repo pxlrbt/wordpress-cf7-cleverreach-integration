@@ -76,7 +76,7 @@ class Plugin
         }
 
         if (version_compare($this->getVersion(), '2.4.0', '<')) {
-            if (ApiCredentials::refreshToken() === null) {
+            if (ApiCredentials::token() !== null && ApiCredentials::refreshToken() === null) {
                 $this->container->getNotifier()->dispatch(
                     Notification::create(
                         sprintf('Cannot automatically refresh API token as refresh token is empty. Please go to <a href="%s">CF7 to CleverReach settings</a> and manually refresh the API token.',
