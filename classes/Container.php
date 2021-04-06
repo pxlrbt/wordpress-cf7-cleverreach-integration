@@ -7,6 +7,7 @@ use pxlrbt\Cf7Cleverreach\Vendor\Monolog\Logger;
 use pxlrbt\Cf7Cleverreach\Vendor\pxlrbt\WordpressNotifier\Notifier;
 use pxlrbt\Cf7Cleverreach\Cleverreach\ApiCredentials;
 use pxlrbt\Cf7Cleverreach\Cleverreach\Api as CleverreachApi;
+use pxlrbt\Cf7Cleverreach\Vendor\pxlrbt\WordpressNotifier\Notification;
 
 class Container
 {
@@ -50,7 +51,12 @@ class Container
     public function getApi()
     {
         if (($token = ApiCredentials::token()) === null) {
-            $this->notifier->warning('Incomplete configuration.');
+            $this->notifier->dispatch(
+                Notification::create('Incomplete configuration', 'configuration')
+                    ->title('CF7 to CleverReach: ')
+                    ->type('warning')
+            );
+
             return new CleverreachApi();
         }
 
