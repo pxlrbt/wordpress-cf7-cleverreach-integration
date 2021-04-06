@@ -65,8 +65,8 @@
                         <option value=""></option>
                         <?php if (is_array($forms)): ?>
                             <?php foreach ($forms as $form): ?>
-                                <option value="<?php echo $form->id(); ?>"
-                                    <?php if (isset($options['formId']) && $form->id() == $options['formId']) { echo "selected"; } ?>>
+                                <option value="<?php echo $form->id; ?>"
+                                    <?php if (isset($options['formId']) && $form->id == $options['formId']) { echo "selected"; } ?>>
                                     <?php echo $form->name; ?>
                                 </option>
                             <?php endforeach; ?>
