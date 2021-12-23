@@ -55,6 +55,11 @@ If you find a bug please open an issue on [GitHub](https://github.com/pxlrbt/wor
 2. Configure form
 
 ## Changelog
+
+### 2.4.5
+* Fix: Add link to log file in error message.
+* Fix: Don't show CF7 panel when token is not set.
+* Fix: Make strings translatable.
 ### 2.4.4
 * Fix: Solved issue inside CF7 configuration panel introduced with 2.4.3.
 ### 2.4.3
