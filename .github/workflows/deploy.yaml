@@ -11,8 +11,15 @@ jobs:
     - name: Git checkout
       uses: actions/checkout@master
 
-    - name: composer-php-scoper
-      uses: pxlrbt/action-composer-php-scoper@1.1.1
+    - name: Install PHP & Composer
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: '7.4'
+        tools: composer
+
+    - name: Install PHP Scoper
+      run: composer global require humbug/php-scoper
+      # uses: pxlrbt/action-composer-php-scoper@1.1.1
 
     - name: WordPress Plugin Deploy
       uses: 10up/action-wordpress-plugin-deploy@master
