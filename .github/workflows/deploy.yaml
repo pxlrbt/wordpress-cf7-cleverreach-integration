@@ -22,6 +22,9 @@ jobs:
       run: composer global require humbug/php-scoper
       # uses: pxlrbt/action-composer-php-scoper@1.1.1
 
+    - name: Run Composer
+      run: composer install
+
     - name: WordPress Plugin Deploy
       uses: 10up/action-wordpress-plugin-deploy@master
       env:
