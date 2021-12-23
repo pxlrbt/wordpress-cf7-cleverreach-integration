@@ -41,18 +41,28 @@ class Container
         if ($this->logger === null) {
             $this->logger = new Logger('cf7-cleverreach');
             $this->logger->pushHandler(
-                new StreamHandler(WP_CONTENT_DIR . '/' . md5(NONCE_KEY) . '-cf7-cleverreach.log')
+                new StreamHandler($this->getLogPath())
             );
         }
 
         return $this->logger;
     }
 
+    public function getLogPath()
+    {
+        return WP_CONTENT_DIR . '/' . md5(NONCE_KEY) . '-cf7-cleverreach.log';
+    }
+
+    public function getLogUrl()
+    {
+        return content_url() . '/' . md5(NONCE_KEY) . '-cf7-cleverreach.log';
+    }
+
     public function getApi()
     {
         if (($token = ApiCredentials::token()) === null) {
             $this->notifier->dispatch(
-                Notification::create('Incomplete configuration', 'configuration')
+                Notification::create(__('Incomplete configuration', 'wpcf7-cleverreach'), 'configuration')
                     ->title('CF7 to CleverReach: ')
                     ->type('warning')
             );

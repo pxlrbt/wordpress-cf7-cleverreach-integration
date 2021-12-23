@@ -1,7 +1,6 @@
 <?php
     use pxlrbt\Cf7Cleverreach\Cleverreach\ApiCredentials;
     use pxlrbt\Cf7Cleverreach\Cleverreach\Api as CleverreachApi;
-    use pxlrbt\Cf7Cleverreach\Plugin;
 ?>
 <div class="wrap">
     <h1><?php _e('Settings', 'wordpress'); ?> › <?php echo esc_html(get_admin_page_title()); ?></h1>
@@ -10,12 +9,13 @@
         $redirectUrl = esc_url(admin_url('admin.php?page=cf7-cleverreach'));
     ?>
 
-
     <table class="form-table">
         <tbody>
             <tr>
                 <th>
-                    <label for="wpcf7-cleverreach_api-token">API Token:</label>
+                    <label for="wpcf7-cleverreach_api-token">
+                        <?php _e('API token', 'wpcf7-cleverreach'); ?>:
+                    </label>
                 </th>
                 <td>
                     <input
@@ -29,7 +29,9 @@
             </tr>
             <tr>
                 <th>
-                    <label for="wpcf7-cleverreach_api-refresh-token">Refresh Token:</label>
+                    <label for="wpcf7-cleverreach_api-refresh-token">
+                        <?php _e('Refresh token', 'wpcf7-cleverreach'); ?>:
+                    </label>
                 </th>
                 <td>
                     <input
@@ -43,10 +45,14 @@
             </tr>
             <?php if (ApiCredentials::expires() != null): ?>
                 <tr>
-                    <th><label for="wpcf7-cleverreach_api-expires">Expires:</label></th>
+                    <th>
+                        <label for="wpcf7-cleverreach_api-expires">
+                            <?php _e('Expires', 'wpcf7-cleverreach'); ?>:
+                        </label>
+                    </th>
                     <td>
                         <?php echo date('Y-m-d', ApiCredentials::expires()); ?>
-                        <small>(Every API token is only valid for a month, but should be renewed weekly)</small>
+                        <small>(<?php _e('Every API token is only valid for a month, but should be renewed weekly', 'wpcf7-cleverreach'); ?>)</small>
                     </td>
                 </tr>
             <?php endif; ?>
@@ -57,6 +63,6 @@
         class="button button-primary"
         href="<?php echo CleverreachApi::generateAuthLink(ApiCredentials::$clientId, $redirectUrl); ?>"
     >
-        Get CleverReach API Token
+        <?php _e('Get CleverReach API token', 'wpcf7-cleverreach'); ?>
     </a>
 </div>

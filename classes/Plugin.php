@@ -79,7 +79,8 @@ class Plugin
             if (ApiCredentials::token() !== null && ApiCredentials::refreshToken() === null) {
                 $this->container->getNotifier()->dispatch(
                     Notification::create(
-                        sprintf('Cannot automatically refresh API token as refresh token is empty. Please go to <a href="%s">CF7 to CleverReach settings</a> and manually refresh the API token.',
+                        sprintf(
+                            __('Cannot automatically refresh API token as refresh token is empty. Please go to <a href="%s">CF7 to CleverReach settings</a> and manually refresh the API token.', 'wpcf7-cleverreach'),
                             esc_url(admin_url('admin.php?page=cf7-cleverreach'))
                         )
                     )

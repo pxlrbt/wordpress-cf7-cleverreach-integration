@@ -38,7 +38,7 @@ class SubmissionHandler
             $this->notifier->dispatch(
                 Notification::create(
                     sprintf(
-                        'Form config for form "<a href="%s">%s</a>" is incomplete.',
+                        __('Form config for form "<a href="%s">%s</a>" is incomplete.', 'wpcf7-cleverreach'),
                         esc_url(admin_url('admin.php?page=wpcf7&post=' . $form->id())),
                         $form->title()
                     )
@@ -110,7 +110,11 @@ class SubmissionHandler
         } catch (\Exception $e) {
             $this->notifier->dispatch(
                 Notification::create(
-                    'Error while transferring data from Contact Form 7 to CleverReach. Check log file for details.'
+                    sprintf(
+                        __('Error while transferring data from Contact Form 7 to CleverReach. %sCheck log file%s for details.', 'wpcf7-cleverreach'),
+                        '<a href="' . $this->container->getLogUrl() . '">',
+                        '</a>',
+                    )
                 )
                     ->title('CF7 to CleverReach: ')
                     ->id('error.transfer')

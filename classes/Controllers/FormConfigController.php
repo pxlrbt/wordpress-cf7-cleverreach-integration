@@ -2,9 +2,11 @@
 
 namespace pxlrbt\Cf7Cleverreach\Controllers;
 
+use pxlrbt\Cf7Cleverreach\Cleverreach\ApiCredentials;
 use pxlrbt\Cf7Cleverreach\ContactForm7\FormConfig;
 use pxlrbt\Cf7Cleverreach\ContactForm7\Helpers;
 use pxlrbt\Cf7Cleverreach\Container;
+use pxlrbt\Cf7Cleverreach\Vendor\pxlrbt\WordpressNotifier\Notification;
 
 class FormConfigController
 {
@@ -27,6 +29,10 @@ class FormConfigController
 
     public function saveCF7Config($form)
     {
+        if (ApiCredentials::token() === null) {
+            return;
+        }
+
         if (count($_POST['wpcf7-cleverreach_options']) == 0) {
             return;
         }
@@ -44,7 +50,9 @@ class FormConfigController
         if (!isset($options['active'])) return;
 
         if (empty($options['listId']) || empty($options['formId']) || empty($options['emailField'])) {
-            $this->container->getNotifier()->warning('Missing form configuration. Required: List Id, Form ID, Email Field.');
+            $this->container->getNotifier()->warning(
+                __('Missing form configuration. Required: List Id, Form ID, Email Field.', 'wpcf7-cleverreach')
+            );
         }
     }
 

@@ -32,7 +32,8 @@ class UpdateCleverreachTokenService
         if (ApiCredentials::refreshToken() === null) {
             $this->container->getNotifier()->dispatch(
                 Notification::create(
-                    sprintf('Cannot automatically refresh API token as refresh token is empty. Please go to <a href="%s">CF7 to CleverReach settings</a> and manually refresh the API token.',
+                    sprintf(
+                        __('Cannot automatically refresh API token as refresh token is empty. Please go to <a href="%s">CF7 to CleverReach settings</a> and manually refresh the API token.', 'wpcf7-cleverreach'),
                         esc_url(admin_url('admin.php?page=cf7-cleverreach'))
                     )
                 )
@@ -55,13 +56,13 @@ class UpdateCleverreachTokenService
             );
         } catch (Exception $e) {
             $this->logger->error('Failed to refresh token.', [$e]);
-            $this->notifier->error('Could not retrieve API token: '. $e->getMessage());
+            $this->notifier->error(__('Could not retrieve API token: ', 'wpcf7-cleverreach') . $e->getMessage());
             return;
         }
 
         if (isset($result->error_description)) {
             $this->logger->error('Failed to refresh token.', [$result]);
-            $this->notifier->error('Could not retrieve API token: ' . $result->error_description);
+            $this->notifier->error(__('Could not retrieve API token: ', 'wpcf7-cleverreach') . $result->error_description);
             return;
         }
 

@@ -24,8 +24,8 @@ class SettingsPageController
     {
         add_submenu_page(
             'wpcf7',
-            'CF7 to CleverReach',
-            'CF7 to CleverReach',
+            __('CF7 to CleverReach', 'wpcf7-cleverreach'),
+            __('CF7 to CleverReach', 'wpcf7-cleverreach'),
             'manage_options',
             'cf7-cleverreach',
             [$this, 'printPage']
@@ -65,13 +65,13 @@ class SettingsPageController
 
         if (isset($result->error_description)) {
             $this->logger->error($e->error_description, [$result]);
-            $this->notifier->error('Could not retrieve api token: ' . $result->error_description);
+            $this->notifier->error(__('Could not retrieve api token: ', 'wpcf7-cleverreach') . $result->error_description);
             return;
         }
 
         if (isset($result->access_token)) {
             ApiCredentials::updateFromResult($result);
-            $this->notifier->success('Api token updated');
+            $this->notifier->success(__('Api token updated', 'wpcf7-cleverreach'));
         }
     }
 }
