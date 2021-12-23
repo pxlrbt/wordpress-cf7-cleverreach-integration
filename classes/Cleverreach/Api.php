@@ -18,7 +18,18 @@ class Api
     public function __construct($token = '')
     {
         $this->token = $token;
-        $this->client = new Client();
+
+        $options = [];
+
+        if (defined('WP_PROXY_HOST')) {
+            $options['proxy'] = WP_PROXY_HOST;
+        }
+
+        if (defined('WP_PROXY_PORT')) {
+            $options['proxy'] .= ':' . WP_PROXY_PORT;
+        }
+
+        $this->client = new Client($options);
     }
 
     /* HELPER FUNCTIONS */
