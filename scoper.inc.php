@@ -32,7 +32,7 @@ return [
     // Whitelists a list of files. Unlike the other whitelist related features, this one is about completely leaving
     // a file untouched.
     // Paths are relative to the configuration file unless if they are already absolute
-    'files-whitelist' => [
+    'exclude-files' => [
     ],
 
     // When scoping PHP files, there will be scenarios where some of the code being scoped indirectly references the
@@ -58,7 +58,7 @@ return [
     // that this does not work with functions or constants neither with classes belonging to the global namespace.
     //
     // Fore more see https://github.com/humbug/php-scoper#whitelist
-    'whitelist' => [
+    'exclude-namespaces' => [
         // 'pxlrbt\Cf7Cleverreach',
         // 'pxlrbt\Wordpress',
         // 'pxlrbt\Cleverreach',
@@ -70,15 +70,15 @@ return [
     // If `true` then the user defined constants belonging to the global namespace will not be prefixed.
     //
     // For more see https://github.com/humbug/php-scoper#constants--constants--functions-from-the-global-namespace
-    'whitelist-global-constants' => true,
+    'expose-global-constants' => true,
 
     // If `true` then the user defined classes belonging to the global namespace will not be prefixed.
     //
     // For more see https://github.com/humbug/php-scoper#constants--constants--functions-from-the-global-namespace
-    'whitelist-global-classes' => true,
+    'expose-global-classes' => true,
 
     // If `true` then the user defined functions belonging to the global namespace will not be prefixed.
     //
     // For more see https://github.com/humbug/php-scoper#constants--constants--functions-from-the-global-namespace
-    'whitelist-global-functions' => true,
+    'expose-global-functions' => true,
 ];
