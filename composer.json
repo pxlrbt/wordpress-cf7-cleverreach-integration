@@ -22,7 +22,6 @@
     },
 
     "scripts": {
-        "post-install-cmd": "@build",
         "post-update-cmd": "@build",
         "build": [
             "rm -rf ./vendor-prefixed",
@@ -33,7 +32,7 @@
             "composer config vendor-dir ./vendor/"
         ],
         "minphp": "./phpcompatinfo.phar analyser:run .",
-        "zip": "yarn prod && zip -r -q -x@.zipignore wp-voucher.zip ./"
+        "zip": "rm -rf cf7-cleverreach-integration.zip && zip -x \".zipignore\" -x \"*.zip\" -x \".git/*\" -x \".gitignore\" -x \"*.zip\" -x \"composer.json\" -x \"composer.lock\" -x \"debug.log\" -x \"vendor/*\" -r -q cf7-cleverreach-integration.zip ./"
     },
     "config": {
         "autoloader-suffix": "3aaadb9787f9f5107bce3305e4c3b064",

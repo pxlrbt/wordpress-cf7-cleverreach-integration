@@ -4,8 +4,8 @@ Contributors: pixelarbeit
 Tags: contact form 7, cf7, cleverreach, contact form 7 addon, contact form 7 integration
 Tested up to: 5.6
 Requires at least: 4.6
-Requires PHP: 5.5
-Stable tag: 2.4.5
+Requires PHP: 7.4
+Stable tag: 2.4.7
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -24,7 +24,7 @@ Add or update new recipients to CleverReach when your Contact Form 7 form is sub
 
 ### Requires
 
-* PHP >= 5.5
+* PHP >= 7.4
 * PHP cURL Extension
 * Contact Form 7 Plugin >= 4.5
 * CleverReach Account
@@ -55,6 +55,12 @@ If you find a bug please open an issue on [GitHub](https://github.com/pxlrbt/wor
 2. Configure form
 
 ## Changelog
+
+### 2.4.7
+* Security: Update dependencies
+
+### 2.4.6
+* Fix: Respect WP_PROXY_HOST and WP_PROXY_PORT
 
 ### 2.4.5
 * Fix: Add link to log file in error message.
