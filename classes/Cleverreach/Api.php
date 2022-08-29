@@ -168,10 +168,20 @@ class Api
 
     public function sendActivationMail($formId, $email)
     {
+        global $wp;
+
         $doidata = [
-            "user_ip" => $_SERVER['REMOTE_ADDR'],
-            "user_agent" => $_SERVER['HTTP_USER_AGENT'],
-            "referer" => $_SERVER['HTTP_REFERER'],
+            "user_ip" => isset($_SERVER['REMOTE_ADDR'])
+                ? $_SERVER['REMOTE_ADDR']
+                : 'redacted',
+
+            "user_agent" => isset($_SERVER['HTTP_USER_AGENT'])
+                ? $_SERVER['HTTP_USER_AGENT']
+                : 'redacted',
+
+            "referer" => isset($_SERVER['HTTP_REFERER'])
+                ? $_SERVER['HTTP_REFERER']
+                : home_url($wp->request),
         ];
 
         $url = $this->buildUrl('forms.json/' . $formId . '/send/activate');
